@@ -16,12 +16,14 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 
 export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
+
+    const router = useRouter();
 
 
 
@@ -43,7 +45,7 @@ export default function LoginPage() {
             toast.error(error.message)
         }
         else{
-            redirect("/")
+            router.push("/")
         }
 
 

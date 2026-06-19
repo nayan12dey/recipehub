@@ -147,10 +147,10 @@ export default function SignUpPage() {
 
                             <Select.Popover>
                                 <ListBox>
-                                    <ListBox.Item id="admin" textValue="admin">
+                                    {/* <ListBox.Item id="admin" textValue="admin">
                                         Admin
                                         <ListBox.ItemIndicator />
-                                    </ListBox.Item>
+                                    </ListBox.Item> */}
 
                                     <ListBox.Item id="user" textValue="user">
                                         User
