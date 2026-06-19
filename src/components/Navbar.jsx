@@ -97,7 +97,7 @@ export default function Navbar() {
                 <Dropdown>
                   <Dropdown.Trigger className="rounded-full">
                     <Avatar size="lg">
-                      <Avatar.Image
+                      <Avatar.Image   
                         src={user?.image}
                         alt={user?.name}
                         referrerPolicy="no-referrer"

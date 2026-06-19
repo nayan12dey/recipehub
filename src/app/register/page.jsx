@@ -51,21 +51,24 @@ export default function SignUpPage() {
         const userData = Object.fromEntries(formData.entries());
         // console.log(userData)
 
-        const {data, error} = await authClient.signUp.email({
+        const { data, error } = await authClient.signUp.email({
             ...userData,
             plan: "free"
-        }) 
+        })
 
-        if(data?.error){
+        if (data?.error) {
             toast.error("Registration not succeed...")
         }
-        else{   
+        else {
             redirect("/login")
         }
-
-       
     };
 
+    const handleGoogleSignin = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
+    }
 
 
     return (
@@ -176,6 +179,7 @@ export default function SignUpPage() {
                             type="button"
                             variant="secondary"
                             className="w-full"
+                            onClick={handleGoogleSignin}
                         >
                             <FcGoogle size={20} />
                             Continue with Google

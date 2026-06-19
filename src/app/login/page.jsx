@@ -35,22 +35,25 @@ export default function LoginPage() {
         const userData = Object.fromEntries(formData.entries());
         // console.log(userData)
 
-        const {data, error} = await authClient.signIn.email({
+        const { data, error } = await authClient.signIn.email({
             ...userData,
         })
 
         // console.log(data, error)
 
-        if(error){
+        if (error) {
             toast.error(error.message)
         }
-        else{
+        else {
             router.push("/")
         }
 
+    }
 
-
-        
+    const handleGoogleSignin = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
     }
 
 
@@ -134,7 +137,7 @@ export default function LoginPage() {
                             type="button"
                             variant="secondary"
                             className="w-full"
-
+                            onClick={handleGoogleSignin}
                         >
                             <FcGoogle size={20} />
                             Continue with Google
