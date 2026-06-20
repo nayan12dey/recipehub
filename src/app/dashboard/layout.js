@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 
 export default function DashboardLayout({ children }) {
     return (
-        <div className="flex min-h-screen bg-slate-900">
+        <div className="flex min-h-screen bg-gray-50">
             <DashboardSideBar />
 
             <div className="flex-1">
