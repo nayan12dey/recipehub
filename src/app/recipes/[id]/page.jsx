@@ -13,6 +13,7 @@ import {
     Flame,
     BookOpen,
 } from "lucide-react";
+import LikeAction from "@/components/LikeAction";
 
 export default async function RecipeDetails({ params }) {
     const { id } = await params;
@@ -20,6 +21,8 @@ export default async function RecipeDetails({ params }) {
     const res = await fetch(`http://localhost:5000/recipes/${id}`, {
         cache: "no-store",
     });
+
+
 
     const recipe = await res.json();
 
@@ -44,14 +47,14 @@ export default async function RecipeDetails({ params }) {
     const ingredients = Array.isArray(recipe.ingredients)
         ? recipe.ingredients
         : typeof recipe.ingredients === "string"
-        ? recipe.ingredients.split(/\n|,/).map((s) => s.trim()).filter(Boolean)
-        : [];
+            ? recipe.ingredients.split(/\n|,/).map((s) => s.trim()).filter(Boolean)
+            : [];
 
     const instructions = Array.isArray(recipe.instructions)
         ? recipe.instructions
         : typeof recipe.instructions === "string"
-        ? recipe.instructions.split(/\n|\d+\./).map((s) => s.trim()).filter(Boolean)
-        : [];
+            ? recipe.instructions.split(/\n|\d+\./).map((s) => s.trim()).filter(Boolean)
+            : [];
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
@@ -309,10 +312,7 @@ export default async function RecipeDetails({ params }) {
                             </button>
 
                             {/* Like */}
-                            <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-pink-50 hover:bg-pink-100 text-pink-600 font-semibold text-sm border border-pink-200 hover:border-pink-300 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
-                                <Heart className="w-4 h-4" />
-                                Like Recipe
-                            </button>
+                            <LikeAction recipeId={recipe._id} ></LikeAction>
 
                             {/* Add Favourite */}
                             <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold text-sm border border-amber-200 hover:border-amber-300 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
