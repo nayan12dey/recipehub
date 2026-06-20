@@ -141,7 +141,7 @@ export default function SignUpPage() {
                             </p>
                         )}
 
-                        <Select isRequired name="role" placeholder="Select role">
+                        {/* <Select isRequired name="role" placeholder="Select role">
                             <Label>Register As</Label>
                             <Select.Trigger>
                                 <Select.Value />
@@ -150,10 +150,10 @@ export default function SignUpPage() {
 
                             <Select.Popover>
                                 <ListBox>
-                                    {/* <ListBox.Item id="admin" textValue="admin">
+                                    <ListBox.Item id="admin" textValue="admin">
                                         Admin
                                         <ListBox.ItemIndicator />
-                                    </ListBox.Item> */}
+                                    </ListBox.Item>
 
                                     <ListBox.Item id="user" textValue="user">
                                         User
@@ -161,7 +161,7 @@ export default function SignUpPage() {
                                     </ListBox.Item>
                                 </ListBox>
                             </Select.Popover>
-                        </Select>
+                        </Select> */}
 
                         <Button type="submit" className="w-full bg-orange-600 hover:bg-orange-500">
                             Register
