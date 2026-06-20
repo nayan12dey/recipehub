@@ -42,31 +42,31 @@ const DashboardSideBar = () => {
             key: "add-recipe",
             label: "Add Recipe",
             icon: FaPlus,
-            href: "/dashboard/add-recipe",
+            href: "/dashboard/user/add-recipe",
         },
         {
             key: "my-recipes",
             label: "My Recipes",
             icon: FaBookOpen,
-            href: "/dashboard/my-recipes",
+            href: "/dashboard/user/my-recipes",
         },
         {
             key: "favorites",
             label: "Favorites",
             icon: FaHeart,
-            href: "/dashboard/favorites",
+            href: "/dashboard/user/favorites",
         },
         {
             key: "purchased",
             label: "Purchased",
             icon: FaShoppingCart,
-            href: "/dashboard/purchased",
+            href: "/dashboard/user/purchased",
         },
         {
             key: "profile",
             label: "Profile",
             icon: FaUserCircle,
-            href: "/dashboard/profile",
+            href: "/dashboard/user/profile",
         },
     ];
 
