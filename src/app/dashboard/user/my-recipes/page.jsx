@@ -1,13 +1,17 @@
 "use client";
 
+import { useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 
 export default function MyRecipes() {
+
+    const { data: session } = useSession();
+
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
         fetch(
-            "http://localhost:5000/my-recipes/nayan@gmail.com"
+            `http://localhost:5000/my-recipes/${session?.user?.email}`
         )
             .then((res) => res.json())
             .then((data) => setRecipes(data));
