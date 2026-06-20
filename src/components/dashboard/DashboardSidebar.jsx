@@ -36,7 +36,7 @@ const DashboardSideBar = () => {
             key: "overview",
             label: "Overview",
             icon: FaHome,
-            href: "/dashboard",
+            href: "/dashboard/user",
         },
         {
             key: "add-recipe",
