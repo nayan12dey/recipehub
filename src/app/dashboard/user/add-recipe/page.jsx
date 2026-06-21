@@ -84,6 +84,8 @@ export default function AddRecipePage() {
             createdAt: new Date(),
         };
 
+        console.log(recipe)
+
         const res = await fetch("http://localhost:5000/recipes", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -93,7 +95,7 @@ export default function AddRecipePage() {
         const data = await res.json();
 
         if (data.insertedId) {
-            toast.success("Recipe added successfully! 🎉");
+            toast.success("Recipe added successfully!");
             form.reset();
             setImagePreview(null);
         }
@@ -152,9 +154,12 @@ export default function AddRecipePage() {
                             <FieldLabel icon={FaTag} label="Category" />
                             <div className="relative">
                                 <select name="category" className={selectBase}>
-                                    <option value="Breakfast"> Breakfast</option>
-                                    <option value="Lunch">Lunch</option>
-                                    <option value="Dinner">Dinner</option>
+                                    <option value="Breakfast"> Main Course</option>
+                                    <option value="Lunch">Fast Food</option>
+                                    <option value="Dinner">Snack</option>
+                                    <option value="Dinner">Healthy</option>
+                                    <option value="Dinner">Street Food</option>
+                                    <option value="Dinner">Beverage</option>
                                     <option value="Dessert">Dessert</option>
                                 </select>
                                 <ChevronIcon />
@@ -300,7 +305,7 @@ export default function AddRecipePage() {
                     <div className="px-6 py-5 bg-gray-50/80 border-t border-gray-100">
                         <button
                             type="submit"
-                            disabled={loading}
+                           
                             className="
                                 w-full py-3.5 rounded-2xl
                                 bg-gradient-to-r from-orange-500 to-red-500

@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 
@@ -37,9 +38,10 @@ export default function MyRecipes() {
                         <td>{recipe.category}</td>
 
                         <td>
+                            <button>View</button>
                             <button>Edit</button>
 
-                            <button>Delete</button>
+                           
                         </td>
                     </tr>
                 ))}

@@ -112,7 +112,7 @@ const DashboardSideBar = () => {
         <aside className="w-64 h-screen flex-shrink-0 border-r border-gray-200 shadow-sm">
             <div className="h-full flex flex-col bg-white/80 backdrop-blur-xl">
 
-            
+
 
                 {/* ── User Profile Card ── */}
                 <div className="px-4 py-4 border-b border-gray-100">
@@ -162,9 +162,12 @@ const DashboardSideBar = () => {
                     </p>
 
                     {menuItems.map(({ key, label, icon: Icon, href }) => {
-                        const isActive =
+                        {/* const isActive =
                             pathname === href ||
-                            (href !== "/dashboard" && pathname?.startsWith(href));
+                            (href !== "/dashboard" && pathname?.startsWith(href)); */}
+
+
+                        const isActive = pathname === href;
 
                         return (
                             <Link
@@ -181,6 +184,8 @@ const DashboardSideBar = () => {
                                     }
                                 `}
                             >
+
+                            
                                 {/* Active left bar */}
                                 {isActive && (
                                     <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-gradient-to-b from-orange-500 to-red-500 rounded-r-full" />
