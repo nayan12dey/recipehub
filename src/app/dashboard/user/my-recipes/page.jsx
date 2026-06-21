@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 export default function MyRecipes() {
 
     const { data: session } = useSession();
+    console.log(session)
 
     const [recipes, setRecipes] = useState([]);
 
