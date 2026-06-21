@@ -154,12 +154,12 @@ export default function AddRecipePage() {
                             <FieldLabel icon={FaTag} label="Category" />
                             <div className="relative">
                                 <select name="category" className={selectBase}>
-                                    <option value="Breakfast"> Main Course</option>
-                                    <option value="Lunch">Fast Food</option>
-                                    <option value="Dinner">Snack</option>
+                                    <option value="Main Course"> Main Course</option>
+                                    <option value="Fast Food">Fast Food</option>
+                                    <option value="Snack">Snack</option>
                                     <option value="Dinner">Healthy</option>
-                                    <option value="Dinner">Street Food</option>
-                                    <option value="Dinner">Beverage</option>
+                                    <option value="Street Food">Street Food</option>
+                                    <option value="Beverage">Beverage</option>
                                     <option value="Dessert">Dessert</option>
                                 </select>
                                 <ChevronIcon />

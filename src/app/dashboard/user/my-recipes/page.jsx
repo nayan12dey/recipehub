@@ -1,7 +1,9 @@
 "use client";
 
 
+import EditModal from "@/components/EditModal";
 import { useSession } from "@/lib/auth-client";
+import { Button } from "@heroui/react";
 import { useEffect, useState } from "react";
 
 export default function MyRecipes() {
@@ -38,10 +40,9 @@ export default function MyRecipes() {
                         <td>{recipe.category}</td>
 
                         <td>
-                            <button>View</button>
-                            <button>Edit</button>
-
-                           
+                            <Button>View</Button>
+                            <EditModal recipe={recipe}></EditModal>
+                            <Button onClick={() => handleDelete(recipe._id)} variant="danger-soft">Delete</Button>
                         </td>
                     </tr>
                 ))}
