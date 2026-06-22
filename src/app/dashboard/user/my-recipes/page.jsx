@@ -1,91 +1,84 @@
+
 "use client";
 
-
-import EditModal from "@/components/EditModal";
 import { useSession } from "@/lib/auth-client";
-import { Button } from "@heroui/react";
-import Link from "next/link";
+import RecipeCard from "@/components/RecipeCard";
+import { FaBookOpen } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 export default function MyRecipes() {
-
     const { data: session } = useSession();
-    console.log(session)
 
     const [recipes, setRecipes] = useState([]);
+    // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(
-            `http://localhost:5000/my-recipes/${session?.user?.email}`
-        )
+        if (!session?.user?.email) return;
+
+        // setLoading(true);
+
+        fetch(`http://localhost:5000/my-recipes/${session.user.email}`)
             .then((res) => res.json())
-            .then((data) => setRecipes(data));
+            .then((data) => {
+                setRecipes(Array.isArray(data) ? data : []);
+                setLoading(false);
+            })
+            .catch(() => setLoading(false));
     }, [session]);
 
-    const handleDelete = async (id) => {
-        const res = await fetch(
-            `http://localhost:5000/recipes/${id}`,
-            {
-                method: "DELETE",
-            }
+
+    const handleRecipeUpdate = (updatedRecipe) => {
+        setRecipes((prev) =>
+            prev.map((recipe) =>
+                recipe._id === updatedRecipe._id
+                    ? updatedRecipe
+                    : recipe
+            )
         );
+    };
+
+    const handleDelete = async (id) => {
+        const res = await fetch(`http://localhost:5000/recipes/${id}`, {
+            method: "DELETE",
+        });
 
         const data = await res.json();
 
         if (data.deletedCount > 0) {
-            setRecipes(
-                recipes.filter(
-                    recipe => recipe._id !== id
-                )
-            );
+            setRecipes((prev) => prev.filter((r) => r._id !== id));
         }
     };
 
-
-
-
     return (
-        <table>
+        <div className="min-h-full">
 
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+            {/* Header */}
+            <div className="mb-6">
+                <div className="flex items-center gap-3 mb-1">
+                    <FaBookOpen className="text-orange-500" />
+                    <h1 className="text-2xl font-bold text-gray-800">
+                        My Recipes
+                    </h1>
+                </div>
+                <p className="text-gray-400 text-sm ml-7">
+                    Manage and organise all your recipes.
+                </p>
+            </div>
 
-            <tbody>
+            {/* Grid */}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {recipes.map((recipe) => (
-                    <tr key={recipe._id}>
-                        <td>{recipe.recipeName}</td>
-
-                        <td>{recipe.category}</td>
-
-                        <td className="flex gap-2">
-
-                            <Link href={`/recipes/${recipe._id}`}>
-                                <Button>
-                                    View
-                                </Button>
-                            </Link>
-
-                            <EditModal recipe={recipe} />
-
-                            <Button
-                                color="danger"
-                                onClick={() =>
-                                    handleDelete(recipe._id)
-                                }
-                            >
-                                Delete
-                            </Button>
-
-                        </td>
-                    </tr>
+                    <RecipeCard
+                        key={recipe._id}
+                        recipe={recipe}
+                        onDelete={handleDelete}
+                        onUpdate={handleRecipeUpdate}
+                    />
                 ))}
-            </tbody>
+            </div>
 
-        </table>
+
+        </div>
     );
 }

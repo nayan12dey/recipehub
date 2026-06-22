@@ -47,7 +47,7 @@ const selectBase =
     "w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-800 text-sm " +
     "focus:outline-none focus:ring-2 focus:ring-orange-400";
 
-export default function EditModal({ recipe }) {
+export default function EditModal({ recipe, onUpdate }) {
     const [imagePreview, setImagePreview] =
         useState(recipe?.recipeImage);
 
@@ -69,7 +69,7 @@ export default function EditModal({ recipe }) {
         let imageURL =
             recipe.recipeImage;
 
-            console.log(imageURL)
+        console.log(imageURL)
 
         const imageFile =
             form.image.files[0];
@@ -147,7 +147,16 @@ export default function EditModal({ recipe }) {
         const data =
             await res.json();
 
+
         if (data.modifiedCount > 0) {
+
+            const updatedRecipeWithId = {
+                ...updatedRecipe,
+                _id: recipe._id,
+            };
+
+            onUpdate(updatedRecipeWithId);
+
             toast.success(
                 "Recipe Updated Successfully"
             );
@@ -156,8 +165,11 @@ export default function EditModal({ recipe }) {
 
     return (
         <Modal>
-            <Button variant="outline">
-                Update
+            <Button
+                variant="outline"
+                className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-orange-200 bg-transparent text-orange-600 text-xs font-semibold hover:bg-orange-50 transition-colors"
+            >
+                ✏️ Edit
             </Button>
 
             <Modal.Backdrop>
@@ -201,7 +213,7 @@ export default function EditModal({ recipe }) {
                                     <div>
                                         <FieldLabel icon={FaTag} label="Category" />
                                         <div className="relative">
-                                            <select name="category" className={selectBase}>
+                                            <select name="category" className={selectBase} defaultValue={recipe?.category}>
                                                 <option value="Main Course"> Main Course</option>
                                                 <option value="Fast Food">Fast Food</option>
                                                 <option value="Snack">Snack</option>
@@ -210,7 +222,7 @@ export default function EditModal({ recipe }) {
                                                 <option value="Beverage">Beverage</option>
                                                 <option value="Dessert">Dessert</option>
                                             </select>
-                                            
+
                                         </div>
                                     </div>
 
@@ -323,7 +335,7 @@ export default function EditModal({ recipe }) {
                                             accept="image/*"
                                             onChange={handleImageChange}
                                             className="hidden"
-                                            
+
                                         />
 
                                         {imagePreview && (
