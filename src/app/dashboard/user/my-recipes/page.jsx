@@ -20,7 +20,29 @@ export default function MyRecipes() {
         )
             .then((res) => res.json())
             .then((data) => setRecipes(data));
-    }, []);
+    }, [session]);
+
+    const handleDelete = async (id) => {
+        const res = await fetch(
+            `http://localhost:5000/recipes/${id}`,
+            {
+                method: "DELETE",
+            }
+        );
+
+        const data = await res.json();
+
+        if (data.deletedCount > 0) {
+            setRecipes(
+                recipes.filter(
+                    recipe => recipe._id !== id
+                )
+            );
+        }
+    };
+
+
+
 
     return (
         <table>
