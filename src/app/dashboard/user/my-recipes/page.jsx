@@ -4,6 +4,7 @@
 import EditModal from "@/components/EditModal";
 import { useSession } from "@/lib/auth-client";
 import { Button } from "@heroui/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function MyRecipes() {
@@ -39,10 +40,25 @@ export default function MyRecipes() {
 
                         <td>{recipe.category}</td>
 
-                        <td>
-                            <Button>View</Button>
-                            <EditModal recipe={recipe}></EditModal>
-                            <Button onClick={() => handleDelete(recipe._id)} variant="danger-soft">Delete</Button>
+                        <td className="flex gap-2">
+
+                            <Link href={`/recipes/${recipe._id}`}>
+                                <Button>
+                                    View
+                                </Button>
+                            </Link>
+
+                            <EditModal recipe={recipe} />
+
+                            <Button
+                                color="danger"
+                                onClick={() =>
+                                    handleDelete(recipe._id)
+                                }
+                            >
+                                Delete
+                            </Button>
+
                         </td>
                     </tr>
                 ))}
