@@ -14,6 +14,7 @@ import {
     BookOpen,
 } from "lucide-react";
 import LikeAction from "@/components/LikeAction";
+import FavoriteAction from "@/components/FavoriteAction";
 
 export default async function RecipeDetails({ params }) {
     const { id } = await params;
@@ -315,10 +316,12 @@ export default async function RecipeDetails({ params }) {
                             <LikeAction recipeId={recipe._id} ></LikeAction>
 
                             {/* Add Favourite */}
-                            <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold text-sm border border-amber-200 hover:border-amber-300 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+                            <FavoriteAction></FavoriteAction>
+
+                            {/* <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold text-sm border border-amber-200 hover:border-amber-300 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
                                 <Star className="w-4 h-4" />
                                 Add to Favourites
-                            </button>
+                            </button> */}
 
                             {/* Report */}
                             <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3 rounded-2xl bg-transparent hover:bg-red-50 text-gray-400 hover:text-red-500 font-medium text-sm border border-gray-200 hover:border-red-200 transition-all duration-200">
