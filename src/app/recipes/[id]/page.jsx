@@ -307,10 +307,21 @@ export default async function RecipeDetails({ params }) {
                             </h3>
 
                             {/* Purchase Recipe */}
-                            <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm shadow-lg shadow-orange-200 hover:shadow-orange-300 hover:from-orange-600 hover:to-red-600 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+
+                            <form action={`/api/recipe_checkout?recipeId=${recipe._id}`} method="POST">
+                                <section>
+                                    <button type="submit" role="link" className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm shadow-lg shadow-orange-200 hover:shadow-orange-300 hover:from-orange-600 hover:to-red-600 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+                                        <ShoppingBag className="w-4 h-4" />
+                                        Purchase Recipe
+                                    </button>
+                                </section>
+                            </form>
+
+
+                            {/* <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm shadow-lg shadow-orange-200 hover:shadow-orange-300 hover:from-orange-600 hover:to-red-600 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
                                 <ShoppingBag className="w-4 h-4" />
                                 Purchase Recipe
-                            </button>
+                            </button> */}
 
                             {/* Like */}
                             <LikeAction recipeId={recipe._id} ></LikeAction>

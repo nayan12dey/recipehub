@@ -35,6 +35,7 @@ const FavoriteAction = () => {
 
 
     return (
+        
         <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold text-sm border border-amber-200 hover:border-amber-300 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
             <Star className="w-4 h-4" />
             Add to Favourites
