@@ -1,7 +1,85 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
-import { FaCheckCircle, FaUtensils } from "react-icons/fa";
+import { headers } from "next/headers";
+import { stripe } from "@/lib/stripe";
+import { auth } from "@/lib/auth";
 
-export default function RecipePurchaseSuccess() {
+import {
+    FaCheckCircle,
+    FaUtensils,
+} from "react-icons/fa";
+
+export default async function RecipePurchaseSuccess({ searchParams }) {
+
+    const params = await searchParams;
+
+    const sessionId = params?.session_id;
+    const recipeId = params?.recipeId;
+
+   
+  
+    const checkoutSession =
+        await stripe.checkout.sessions.retrieve(sessionId);
+
+    if (checkoutSession.payment_status !== "paid") {
+        redirect("/");
+    }
+
+    
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    
+    let recipe = null;
+
+    try {
+        const recipeRes = await fetch(
+            `http://localhost:5000/recipes/${recipeId}`,
+            { cache: "no-store" }
+        );
+
+        recipe = await recipeRes.json();
+
+    } catch (err) {
+        console.error("Recipe fetch error:", err);
+    }
+
+  
+    try {
+        const res = await fetch(
+            "http://localhost:5000/payments",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    recipeId,
+
+                    
+                    recipeName: recipe?.recipeName,
+                    recipeImage: recipe?.recipeImage,
+                    category: recipe?.category,
+                    cuisineType: recipe?.cuisineType,
+
+                    userEmail: session?.user?.email,
+                    userId: session?.user?.id,
+
+                    stripeSessionId: sessionId,
+                    amount: checkoutSession.amount_total,
+                    paymentStatus: checkoutSession.payment_status,
+                    purchasedAt: new Date(),
+                }),
+            }
+        );
+
+        console.log("Payment save status:", res.status);
+
+    } catch (error) {
+        console.error("PAYMENT SAVE ERROR:", error);
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-white to-orange-100 px-4">
 
@@ -25,39 +103,24 @@ export default function RecipePurchaseSuccess() {
                     Your payment was completed successfully.
                 </p>
 
-                <p className="text-gray-500 text-sm mt-2">
-                    This recipe has been added to your Purchased Recipes.
-                </p>
-
-                <div className="bg-green-50 border border-green-100 rounded-xl p-4 mt-6">
-
-                    <h3 className="font-semibold text-green-600">
-                        Purchase Successful
-                    </h3>
-
-                    <p className="text-sm text-gray-600 mt-2">
-                        You can now view this recipe anytime from
-                        your dashboard.
-                    </p>
-                </div>
-
                 <div className="flex gap-3 mt-6">
 
                     <Link
                         href="/dashboard/user/purchased"
-                        className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-semibold"
+                        className="flex-1 bg-orange-500 text-white py-3 rounded-xl font-semibold"
                     >
                         My Purchases
                     </Link>
 
                     <Link
                         href="/recipes"
-                        className="flex-1 border border-orange-500 text-orange-500 hover:bg-orange-50 py-3 rounded-xl font-semibold"
+                        className="flex-1 border border-orange-500 text-orange-500 py-3 rounded-xl font-semibold"
                     >
                         Browse More
                     </Link>
 
                 </div>
+
             </div>
         </div>
     );
