@@ -81,25 +81,25 @@ const DashboardSideBar = () => {
             key: "manage-users",
             label: "Manage Users",
             icon: FaUsers,
-            href: "/dashboard/manage-users",
+            href: "/dashboard/admin/manage-users",
         },
         {
             key: "manage-recipes",
             label: "Manage Recipes",
             icon: FaUtensils,
-            href: "/dashboard/manage-recipes",
+            href: "/dashboard/admin/manage-recipes",
         },
         {
             key: "reports",
             label: "Reports",
             icon: FaFlag,
-            href: "/dashboard/reports",
+            href: "/dashboard/admin/reports",
         },
         {
             key: "transactions",
             label: "Transactions",
             icon: FaMoneyBill,
-            href: "/dashboard/transactions",
+            href: "/dashboard/admin/transactions",
         },
     ];
 
