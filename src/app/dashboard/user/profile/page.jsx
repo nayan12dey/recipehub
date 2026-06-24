@@ -1,133 +1,26 @@
-// "use client";
-
-// import { useSession } from "@/lib/auth-client";
-// import { Button } from "@heroui/react";
-// import Image from "next/image";
-// import { useRouter } from "next/navigation";
-// import toast from "react-hot-toast";
-
-// const ProfilePage = () => {
-//     const { data: session } = useSession();
-//     const router = useRouter();
-
-//     const handleUpdate = async (e) => {
-//         e.preventDefault();
-
-//         const form = e.target;
-
-//         const updatedUser = {
-//             name: form.name.value,
-//             image: form.image.value,
-//         };
-
-//         const res = await fetch(
-//             `http://localhost:5000/users/${session?.user?.email}`,
-//             {
-//                 method: "PATCH",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                 },
-//                 body: JSON.stringify(updatedUser),
-//             }
-//         );
-
-//         const data = await res.json();
-
-//         if (data.modifiedCount > 0) {
-//             toast.success("Profile Updated");
-//             window.location.reload();
-//         }
-//     };
-
-//     return (
-//         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-white to-orange-100 p-4">
-
-//             <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-orange-100 p-6">
-
-//                 {/* Header */}
-//                 <div className="text-center mb-6">
-//                     <h1 className="text-2xl font-bold text-gray-800">
-//                         My Profile
-//                     </h1>
-//                     <p className="text-sm text-gray-500">
-//                         Update your personal information
-//                     </p>
-//                 </div>
-
-//                 {/* Profile Image */}
-//                 <div className="flex justify-center mb-6">
-//                     <div className="relative">
-//                         <Image
-//                             width={100}
-//                             height={100}
-//                             src={session?.user?.image || "/avatar.png"}
-//                             alt="profile"
-//                             className="w-28 h-28 rounded-full object-cover border-4 border-orange-200 shadow-md"
-//                         />
-//                     </div>
-//                 </div>
-
-//                 {/* Form */}
-//                 <form onSubmit={handleUpdate} className="space-y-4">
-
-//                     <div>
-//                         <label className="text-sm text-gray-600">Name</label>
-//                         <input
-//                             type="text"
-//                             name="name"
-//                             defaultValue={session?.user?.name}
-//                             className="mt-1 w-full border border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none p-3 rounded-xl transition"
-//                             placeholder="Enter your name"
-//                         />
-//                     </div>
-
-//                     <div>
-//                         <label className="text-sm text-gray-600">Profile Image URL</label>
-//                         <input
-//                             type="url"
-//                             name="image"
-//                             defaultValue={session?.user?.image}
-//                             className="mt-1 w-full border border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none p-3 rounded-xl transition"
-//                             placeholder="Enter image URL"
-//                         />
-//                     </div>
-
-//                     <Button
-//                         type="submit"
-//                         className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-xl transition-all shadow-md"
-//                     >
-//                         Update Profile
-//                     </Button>
-
-//                 </form>
-
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default ProfilePage;
-
-
-
 "use client";
 
 import { useSession } from "@/lib/auth-client";
+import { useEffect, useState } from "react";
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import toast from "react-hot-toast";
-import {
-    FaCrown,
-    FaCheckCircle,
-    FaExclamationCircle,
-} from "react-icons/fa";
+import { FaCrown, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
-const ProfilePage = () => {
+export default function ProfilePage() {
     const { data: session } = useSession();
+    const [userData, setUserData] = useState();
+
+    useEffect(() => {
+        if (session?.user?.email) {
+            fetch(`http://localhost:5000/user/${session?.user?.email}`)
+                .then(res => res.json())
+                .then(data => setUserData(data));
+        }
+    }, [session]);
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-
         const form = e.target;
 
         const updatedUser = {
@@ -136,7 +29,7 @@ const ProfilePage = () => {
         };
 
         const res = await fetch(
-            `http://localhost:5000/users/${session?.user?.email}`,
+            `http://localhost:5000/user/${session?.user?.email}`,
             {
                 method: "PATCH",
                 headers: {
@@ -150,215 +43,181 @@ const ProfilePage = () => {
 
         if (data.modifiedCount > 0) {
             toast.success("Profile Updated");
-            window.location.reload();
         }
     };
 
-    const isPremium = session?.user?.isPremium;
+    const isPremium = userData?.plan === "premium";
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row md:items-start justify-center bg-gradient-to-br from-orange-50 via-white to-orange-100 p-6 gap-6">
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 p-6 flex items-center">
 
-            {/* PROFILE CARD */}
-            <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-orange-100 p-6">
-                <div className="text-center mb-6">
-                    <h1 className="text-2xl font-bold text-gray-800">
-                        My Profile
-                    </h1>
-                    <p className="text-sm text-gray-500">
-                        Update your personal information
-                    </p>
-                </div>
+            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 w-full items-start">
 
-                <div className="flex justify-center mb-6">
-                    <Image
-                        width={120}
-                        height={120}
-                        src={session?.user?.image || "/avatar.png"}
-                        alt="profile"
-                        className="w-28 h-28 rounded-full object-cover border-4 border-orange-200 shadow-md"
-                    />
-                </div>
+                {/* LEFT PROFILE CARD */}
+                <div className="bg-white rounded-3xl shadow-xl border border-orange-100 p-8">
+                    <div className="text-center mb-6">
+                        <div className="flex justify-center mb-4">
+                            <Image
+                                src={session?.user?.image || "/avatar.png"}
+                                width={120}
+                                height={120}
+                                alt="profile"
+                                className="w-32 h-32 rounded-full object-cover border-4 border-orange-200"
+                            />
+                        </div>
 
-                <form onSubmit={handleUpdate} className="space-y-4">
-                    <div>
-                        <label className="text-sm text-gray-600">
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            name="name"
-                            defaultValue={session?.user?.name}
-                            className="mt-1 w-full border border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none p-3 rounded-xl transition"
-                            placeholder="Enter your name"
-                        />
+                        <h1 className="text-2xl font-bold text-gray-800">
+                            {session?.user?.name}
+                        </h1>
+
+                        <p className="text-gray-500 mt-1">
+                            {session?.user?.email}
+                        </p>
+
+                        {isPremium && (
+                            <div className="mt-4 inline-flex items-center gap-2 bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full font-semibold text-sm">
+                                <FaCrown />
+                                Premium Member
+                            </div>
+                        )}
                     </div>
 
-                    <div>
-                        <label className="text-sm text-gray-600">
-                            Profile Image URL
-                        </label>
-                        <input
-                            type="url"
-                            name="image"
-                            defaultValue={session?.user?.image}
-                            className="mt-1 w-full border border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none p-3 rounded-xl transition"
-                            placeholder="Enter image URL"
-                        />
-                    </div>
-
-                    <Button
-                        type="submit"
-                        className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-xl"
-                    >
-                        Update Profile
-                    </Button>
-                </form>
-            </div>
-
-            {/* PREMIUM SECTION */}
-            {isPremium ? (
-                <div className="w-full max-w-md bg-gradient-to-br from-amber-400 via-orange-500 to-orange-600 text-white rounded-2xl shadow-xl p-6">
-
-                    <div className="flex justify-between items-center mb-6">
+                    <form onSubmit={handleUpdate} className="space-y-4">
                         <div>
-                            <p className="uppercase tracking-widest text-xs opacity-90">
-                                Premium Membership
+                            <label className="text-sm text-gray-600">Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                defaultValue={session?.user?.name}
+                                className="w-full mt-1 p-3 border rounded-xl outline-none focus:border-orange-400"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="text-sm text-gray-600">Profile Image URL</label>
+                            <input
+                                type="text"
+                                name="image"
+                                defaultValue={session?.user?.image}
+                                className="w-full mt-1 p-3 border rounded-xl outline-none focus:border-orange-400"
+                            />
+                        </div>
+
+                        <Button
+                            type="submit"
+                            className="w-full bg-orange-500 text-white py-3 rounded-xl font-semibold"
+                        >
+                            Update Profile
+                        </Button>
+                    </form>
+                </div>
+
+                {/* PREMIUM/UPGRADE SECTION */}
+                {isPremium ? (
+                    
+                    <div className="backdrop-blur-md bg-white/40 border border-white/60 rounded-3xl shadow-lg p-6 text-gray-800 max-w-md mx-auto md:w-full">
+                        <div className="flex justify-between items-center mb-4">
+                            <div>
+                                <p className="text-xs uppercase tracking-wider text-orange-600 font-bold">
+                                    Membership Status
+                                </p>
+                                <h2 className="text-2xl font-black text-gray-800 mt-0.5 flex items-center gap-2">
+                                    Premium Active
+                                </h2>
+                            </div>
+                            <div className="bg-gradient-to-br from-yellow-400 to-orange-500 p-2.5 rounded-2xl shadow-sm">
+                                <FaCrown className="text-2xl text-white" />
+                            </div>
+                        </div>
+
+                        
+                        <div className="space-y-3.5 mt-6 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-white/40">
+                            <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                                <FaCheckCircle className="text-emerald-500 text-base" />
+                                <span>Unlimited Recipe Uploads</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                                <FaCheckCircle className="text-emerald-500 text-base" />
+                                <span>Premium Profile Badge</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                                <FaCheckCircle className="text-emerald-500 text-base" />
+                                <span>Ad-Free Experience</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                                <FaCheckCircle className="text-emerald-500 text-base" />
+                                <span>Priority Platform Features</span>
+                            </div>
+                        </div>
+
+                        <div className="mt-6 pt-4 border-t border-gray-200/40 flex justify-between items-center text-xs font-semibold text-gray-500">
+                            <span>Status: Active</span>
+                            <span className="bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded-full">Auto-Renew</span>
+                        </div>
+                    </div>
+                ) : (
+                    /* Upgrade Card */
+                    <div className="bg-white rounded-3xl shadow-xl border border-orange-100 p-8 flex flex-col justify-between">
+                        <div>
+                            <div className="flex justify-between items-center mb-6">
+                                <span className="bg-orange-500 text-white text-xs px-3 py-1 rounded-full font-bold">
+                                    PREMIUM
+                                </span>
+                                <FaCrown className="text-3xl text-orange-500" />
+                            </div>
+
+                            <h2 className="text-3xl font-bold text-orange-600">
+                                Upgrade To Premium
+                            </h2>
+
+                            <p className="text-gray-500 mt-2">
+                                Unlock premium features and enjoy unlimited recipe uploads.
                             </p>
 
-                            <h2 className="text-2xl font-bold mt-1">
-                                Premium Member 👑
-                            </h2>
+                            <div className="mt-6">
+                                <span className="text-5xl font-bold text-gray-800">$9.99</span>
+                                <span className="text-gray-500 ml-2">/year</span>
+                            </div>
+
+                            <div className="mt-8 space-y-4">
+                                <div className="flex items-start gap-3 bg-orange-50 p-4 rounded-xl text-gray-700">
+                                    <FaExclamationCircle className="text-orange-500 mt-1 flex-shrink-0" />
+                                    <span className="text-sm">Free users can add only 2 recipes.</span>
+                                </div>
+
+                                <div className="flex items-center gap-3 text-gray-700 font-medium">
+                                    <FaCheckCircle className="text-green-500" />
+                                    <span>Unlimited Recipes</span>
+                                </div>
+
+                                <div className="flex items-center gap-3 text-gray-700 font-medium">
+                                    <FaCheckCircle className="text-green-500" />
+                                    <span>Premium Badge</span>
+                                </div>
+
+                                <div className="flex items-center gap-3 text-gray-700 font-medium">
+                                    <FaCheckCircle className="text-green-500" />
+                                    <span>Ad-Free Experience</span>
+                                </div>
+                            </div>
                         </div>
 
-                        <FaCrown className="text-4xl text-yellow-200" />
-                    </div>
-
-                    <div className="bg-white/15 backdrop-blur-sm rounded-xl p-4 mb-6">
-                        <p className="text-sm text-white/90">
-                            Your premium plan is active.
-                        </p>
-
-                        <p className="text-lg font-semibold mt-1">
-                            Enjoy unlimited access to all premium features.
-                        </p>
-                    </div>
-
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-3">
-                            <FaCheckCircle />
-                            <span>Unlimited Recipe Uploads</span>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <FaCheckCircle />
-                            <span>Verified Profile Badge</span>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <FaCheckCircle />
-                            <span>Ad-Free Experience</span>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <FaCheckCircle />
-                            <span>Premium Priority Access</span>
-                        </div>
-                    </div>
-
-                    <div className="mt-6 border-t border-white/20 pt-4">
-                        <p className="text-sm text-white/80">
-                            Status: Active Premium Member
-                        </p>
-                    </div>
-                </div>
-            ) : (
-                <div className="w-full max-w-md bg-white text-gray-900 rounded-2xl shadow-xl border border-orange-100 p-6 flex flex-col justify-between min-h-[500px]">
-
-                    <div>
-                        <div className="flex justify-between items-center mb-6">
-                            <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                                PRO ACCESS
-                            </span>
-
-                            <FaCrown className="text-orange-500 text-2xl animate-pulse" />
-                        </div>
-
-                        <h2 className="text-2xl font-bold text-orange-600">
-                            Go Premium
-                        </h2>
-
-                        <p className="text-sm text-gray-600 mt-2">
-                            Unlock limits and share your culinary creativity.
-                        </p>
-
-                        <div className="mt-5 flex items-baseline">
-                            <span className="text-5xl font-extrabold">
-                                $9.99
-                            </span>
-
-                            <span className="ml-2 text-gray-500">
-                                /year
-                            </span>
-                        </div>
-
-                        <ul className="space-y-4 mt-8">
-                            <li className="flex items-start gap-3 bg-orange-50 p-3 rounded-xl border border-orange-100">
-                                <FaExclamationCircle className="text-orange-500 mt-1" />
-
-                                <span className="text-sm">
-                                    Normal users can add only{" "}
-                                    <strong>2 recipes</strong>.
-                                </span>
-                            </li>
-
-                            <li className="flex items-center gap-3">
-                                <FaCheckCircle className="text-green-500" />
-                                <span>Unlimited Recipes</span>
-                            </li>
-
-                            <li className="flex items-center gap-3">
-                                <FaCheckCircle className="text-green-500" />
-                                <span>Ad-Free Experience</span>
-                            </li>
-
-                            <li className="flex items-center gap-3">
-                                <FaCheckCircle className="text-green-500" />
-                                <span>Verified Badge</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <form action="/api/checkout_sessions" method="POST">
-                            <section>
-                                <Button type="submit" role="link" as="a"
-                                    // href="YOUR_STRIPE_PAYMENT_LINK"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="w-full bg-gradient-to-r from-amber-400 via-orange-400 to-orange-500 text-white font-bold py-3 rounded-xl"
+                        <div className="mt-10">
+                            <form action="/api/checkout_sessions" method="POST">
+                                <Button
+                                    type="submit"
+                                    className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white font-bold py-3 rounded-xl shadow-md hover:opacity-90 transition-opacity"
                                 >
                                     Upgrade Now
                                 </Button>
-                            </section>
-                        </form>
-
-
-
-                        {/* <Button
-                        >
-                            
-                        </Button> */}
-
-                        <p className="text-center text-xs text-gray-400 mt-3">
-                            Secure payment hosted by Stripe.
-                        </p>
+                            </form>
+                            <p className="text-center text-xs text-gray-400 mt-4">
+                                Secure payment powered by Stripe.
+                            </p>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
-};
-
-export default ProfilePage;
-
+}

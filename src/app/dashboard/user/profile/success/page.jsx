@@ -1,7 +1,28 @@
+"use client";
+
 import Link from "next/link";
+import { useSession } from "@/lib/auth-client";
+import { useEffect } from "react";
 import { FaCheckCircle, FaCrown } from "react-icons/fa";
 
 export default function PremiumSuccessPage() {
+    const { data: session } = useSession();
+
+    useEffect(() => {
+        const updatePlan = async () => {
+            if (!session?.user?.email) return;
+
+            await fetch(
+                `http://localhost:5000/users/plan/${session?.user?.email}`,
+                {
+                    method: "PATCH",
+                }
+            );
+        };
+
+        updatePlan();
+    }, [session]);
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-white to-orange-100 px-4">
 
@@ -44,10 +65,10 @@ export default function PremiumSuccessPage() {
                 </div>
 
                 <Link
-                    href="/dashboard/user"
+                    href="/dashboard/user/profile"
                     className="mt-6 inline-block w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-semibold"
                 >
-                    Go To Dashboard
+                    Go To Profile
                 </Link>
             </div>
         </div>
