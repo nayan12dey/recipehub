@@ -43,6 +43,7 @@ export default function ProfilePage() {
 
         if (data.modifiedCount > 0) {
             toast.success("Profile Updated");
+            window.location.reload();
         }
     };
 
