@@ -4,24 +4,70 @@ import Link from "next/link";
 import { useSession } from "@/lib/auth-client";
 import { useEffect } from "react";
 import { FaCheckCircle, FaCrown } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
 
 export default function PremiumSuccessPage() {
     const { data: session } = useSession();
 
+    const searchParams = useSearchParams();
+
+    const sessionId = searchParams.get("session_id");
+
     useEffect(() => {
-        const updatePlan = async () => {
-            if (!session?.user?.email) return;
+        const savePremiumPayment = async () => {
+            if (
+                !session?.user?.email ||
+                !sessionId
+            )
+                return;
+
+
+            const stripeRes = await fetch(
+                `http://localhost:5000/stripe-session/${sessionId}`
+            );
+
+            const stripeData =
+                await stripeRes.json();
 
             await fetch(
-                `http://localhost:5000/users/plan/${session?.user?.email}`,
+                `http://localhost:5000/users/plan/${session.user.email}`,
                 {
                     method: "PATCH",
                 }
             );
+
+            await fetch(
+                "http://localhost:5000/payments",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+                    },
+                    body: JSON.stringify({
+                        userEmail:
+                            session.user.email,
+                        userId:
+                            session.user.id,
+                        amount:
+                            stripeData.amount,
+                        paymentStatus:
+                            stripeData.paymentStatus,
+                        stripeSessionId:
+                            sessionId,
+                        paymentType:
+                            "premium",
+                        purchasedAt:
+                            new Date(),
+                    }),
+                }
+            );
         };
 
-        updatePlan();
-    }, [session]);
+        savePremiumPayment();
+
+    }, [session, sessionId]);
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-white to-orange-100 px-4">
