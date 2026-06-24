@@ -56,8 +56,6 @@ export default async function RecipePurchaseSuccess({ searchParams }) {
                 },
                 body: JSON.stringify({
                     recipeId,
-
-                    
                     recipeName: recipe?.recipeName,
                     recipeImage: recipe?.recipeImage,
                     category: recipe?.category,
@@ -67,7 +65,7 @@ export default async function RecipePurchaseSuccess({ searchParams }) {
                     userId: session?.user?.id,
 
                     stripeSessionId: sessionId,
-                    amount: checkoutSession.amount_total,
+                    amount: checkoutSession.amount_total / 100,
                     paymentStatus: checkoutSession.payment_status,
                     purchasedAt: new Date(),
                 }),
