@@ -17,18 +17,28 @@ import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { redirect, useRouter } from "next/navigation";
+import Loader from "@/components/Loader";
 
 
 export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+
 
     const router = useRouter();
+
+    if (loading) {
+        return <Loader />;
+    }
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setLoading(true);
 
         const formData = new FormData(e.currentTarget);
 
@@ -43,6 +53,7 @@ export default function LoginPage() {
 
         if (error) {
             toast.error(error.message)
+            setLoading(false);
         }
         else {
             router.push("/")
