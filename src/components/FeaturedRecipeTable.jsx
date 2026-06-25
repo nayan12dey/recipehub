@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaGlobe } from "react-icons/fa";
 
@@ -5,7 +6,9 @@ export default function FeaturedRecipeTable({ recipe }) {
     return (
         <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition">
 
-            <img
+            <Image
+            width={200}
+            height={200}
                 src={recipe.recipeImage}
                 alt={recipe.recipeName}
                 className="w-full h-56 object-cover"
