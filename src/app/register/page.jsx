@@ -21,10 +21,16 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { BsGoogle, BsGooglePlay } from "react-icons/bs";
 import { CgGoogle } from "react-icons/cg";
+import Loader from "@/components/Loader";
 
 export default function SignUpPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     const validatePassword = (password) => {
         const validationErrors = {};
@@ -46,6 +52,8 @@ export default function SignUpPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setLoading(true);
+
         const formData = new FormData(e.currentTarget);
 
         const userData = Object.fromEntries(formData.entries());
@@ -60,11 +68,14 @@ export default function SignUpPage() {
             toast.error("Registration not succeed...")
         }
         else {
+            setLoading(false);
             redirect("/login")
         }
     };
 
     const handleGoogleSignin = async () => {
+        setLoading(true);
+        
         await authClient.signIn.social({
             provider: "google",
         });
