@@ -132,7 +132,7 @@ export default function Navbar() {
 
                       <Dropdown.Item id="profile">
                         <Link
-                          href="/profile"
+                          href="dashboard/profile"
                           className="flex items-center gap-2"
                         >
                           <CgProfile />

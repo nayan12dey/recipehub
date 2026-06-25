@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import LikeAction from "@/components/LikeAction";
 import FavoriteAction from "@/components/FavoriteAction";
+import ReportModal from "@/components/ReportModal";
 
 export default async function RecipeDetails({ params }) {
     const { id } = await params;
@@ -335,10 +336,14 @@ export default async function RecipeDetails({ params }) {
                             </button> */}
 
                             {/* Report */}
-                            <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3 rounded-2xl bg-transparent hover:bg-red-50 text-gray-400 hover:text-red-500 font-medium text-sm border border-gray-200 hover:border-red-200 transition-all duration-200">
+
+                            <ReportModal recipe={recipe}></ReportModal>
+
+
+                            {/* <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3 rounded-2xl bg-transparent hover:bg-red-50 text-gray-400 hover:text-red-500 font-medium text-sm border border-gray-200 hover:border-red-200 transition-all duration-200">
                                 <Flag className="w-4 h-4" />
                                 Report Recipe
-                            </button>
+                            </button> */}
                         </div>
                     </div>
 
