@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaGlobe } from "react-icons/fa";
 
-export default function FeaturedRecipeTable({ recipe }) {
+export default function FeaturedRecipeCard({ recipe }) {
     return (
         <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition">
 
@@ -45,4 +45,4 @@ export default function FeaturedRecipeTable({ recipe }) {
             </div>
         </div>
     );
-}
+}    
