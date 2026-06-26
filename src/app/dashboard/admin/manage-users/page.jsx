@@ -1,6 +1,7 @@
 "use client";
 
 import Loader from "@/components/Loader";
+import { authClient, useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import {
     FaUserCheck,
@@ -12,28 +13,45 @@ export default function ManageUsers() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const { data: session } = useSession();
+
     useEffect(() => {
-        setLoading(true);
+        const fetchUsers = async () => {
+            if (!session?.user?.email) return;
 
-        fetch("http://localhost:5000/users")
-            .then((res) => res.json())
-            .then((data) => {
-                setUsers(data)
-                setLoading(false);
+            setLoading(true);
 
-            })
-            .catch((err) => {
-                console.error(err)
-                setLoading(false);
-            });
-    }, []);
+            const { data: token } = await authClient.token();
+
+            const res = await fetch(
+                "http://localhost:5000/users",
+                {
+                    headers: {
+                        authorization: `Bearer ${token?.token}`,
+                    },
+                }
+            );
+
+            const data = await res.json();
+
+            setUsers(data);
+            setLoading(false);
+        };
+
+        fetchUsers();
+    }, [session]);
 
     const handleBlock = async (id) => {
         try {
+            const { data: token } = await authClient.token();
+
             const res = await fetch(
                 `http://localhost:5000/users/block/${id}`,
                 {
                     method: "PATCH",
+                    headers: {
+                        authorization: `Bearer ${token?.token}`,
+                    },
                 }
             );
 
@@ -58,10 +76,15 @@ export default function ManageUsers() {
 
     const handleUnblock = async (id) => {
         try {
+            const { data: token } = await authClient.token();
+
             const res = await fetch(
                 `http://localhost:5000/users/unblock/${id}`,
                 {
                     method: "PATCH",
+                    headers: {
+                        authorization: `Bearer ${token?.token}`,
+                    },
                 }
             );
 

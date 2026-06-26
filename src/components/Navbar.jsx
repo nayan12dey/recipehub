@@ -10,6 +10,7 @@ import { MdDashboard } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { BiLogOut } from "react-icons/bi";
 import { Avatar, Dropdown } from "@heroui/react";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,16 +57,16 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/20 bg-white/70 backdrop-blur-xl shadow-sm">
+    <nav className="sticky top-0 z-50 border-b border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-3 items-center h-16">
 
           {/* LOGO */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-xl">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-xl shadow-md">
               🍳
             </div>
-            <span className="text-xl font-bold group-hover:text-orange-500">
+            <span className="text-xl font-bold group-hover:text-orange-500 dark:text-white dark:group-hover:text-orange-400 transition-colors">
               RecipeHub
             </span>
           </Link>
@@ -77,7 +78,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="relative text-gray-700 font-medium transition-colors duration-300 hover:text-orange-500 group"
+                className="relative text-gray-700 dark:text-gray-300 font-medium transition-colors duration-300 hover:text-orange-500 dark:hover:text-orange-400 group"
               >
                 {link.name}
 
@@ -90,7 +91,7 @@ export default function Navbar() {
             {user && (
               <Link
                 href={`/dashboard/${user?.role || "user"}`}
-                className="relative text-gray-700 font-medium transition-colors duration-300 hover:text-orange-500 group"
+                className="relative text-gray-700 dark:text-gray-300 font-medium transition-colors duration-300 hover:text-orange-500 dark:hover:text-orange-400 group"
               >
                 Dashboard
                 <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
@@ -99,10 +100,12 @@ export default function Navbar() {
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="flex justify-end items-center">
+          <div className="flex justify-end items-center gap-2">
+            
+            <ThemeToggle />
 
             {/* DESKTOP AUTH */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-3 ml-2">
 
               {!user ? (
                 <>
@@ -199,7 +202,7 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       {isOpen && (
-        <div className="md:hidden border-t bg-white/90 backdrop-blur-xl px-4 py-4 space-y-4">
+        <div className="md:hidden border-t dark:border-white/10 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl px-4 py-4 space-y-4 shadow-lg transition-colors duration-300">
 
           {/* LINKS */}
           {navLinks.map((link) => (
@@ -207,7 +210,7 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="block text-gray-700 font-medium hover:text-orange-500 transition"
+              className="block text-gray-700 dark:text-gray-300 font-medium hover:text-orange-500 dark:hover:text-orange-400 transition"
             >
               {link.name}
             </Link>
@@ -218,7 +221,7 @@ export default function Navbar() {
             <Link
               href={`/dashboard/${user?.role || "user"}`}
               onClick={() => setIsOpen(false)}
-              className="block text-gray-700 font-medium hover:text-orange-500 transition"
+              className="block text-gray-700 dark:text-gray-300 font-medium hover:text-orange-500 dark:hover:text-orange-400 transition"
             >
               Dashboard
             </Link>

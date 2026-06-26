@@ -3,6 +3,7 @@
 import Loader from "@/components/Loader";
 import { useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
+import { authClient } from "@/lib/auth-client";
 import {
     FaUsers,
     FaUtensils,
@@ -17,15 +18,36 @@ export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
-        fetch("http://localhost:5000/admin-overview")
-            .then((res) => res.json())
-            .then((data) => {
+        const fetchOverview = async () => {
+            if (!session?.user?.email) return;
+
+            setLoading(true);
+
+            try {
+                const { data: token } =
+                    await authClient.token();
+
+                const res = await fetch(
+                    "http://localhost:5000/admin-overview",
+                    {
+                        headers: {
+                            authorization: `Bearer ${token?.token}`,
+                        },
+                    }
+                );
+
+                const data = await res.json();
+
                 setStats(data);
+            } catch (error) {
+                console.log(error);
+            } finally {
                 setLoading(false);
-            })
-            .catch(() => setLoading(false));
-    }, []);
+            }
+        };
+
+        fetchOverview();
+    }, [session]);
 
     const statCards = [
         {

@@ -6,30 +6,57 @@ import { ShieldAlert, AlertCircle } from "lucide-react";
 import ReportsTable from "@/components/ReportsTable";
 import toast from "react-hot-toast";
 import Loader from "@/components/Loader";
+import { authClient, useSession } from "@/lib/auth-client";
 
 export default function ReportsPage() {
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const { data: session } = useSession();
+
     useEffect(() => {
-        fetch("http://localhost:5000/reports")
-            .then((res) => res.json())
-            .then((data) => {
+        const fetchReports = async () => {
+            if (!session?.user?.email) return;
+
+            setLoading(true);
+
+            try {
+                const { data: token } =
+                    await authClient.token();
+
+                const res = await fetch(
+                    "http://localhost:5000/reports",
+                    {
+                        headers: {
+                            authorization: `Bearer ${token?.token} `,
+                        },
+                    }
+                );
+
+                const data = await res.json();
+
                 setReports(data);
+            } catch (error) {
+                console.log(error);
+            } finally {
                 setLoading(false);
-            })
-            .catch((err) => {
-                console.error(err);
-                setLoading(false);
-            });
-    }, []);
+            }
+        };
+
+        fetchReports();
+    }, [session]);
+
 
     // Dismiss Report
     const handleDismiss = async (id) => {
+        const { data: token } = await authClient.token()
         const res = await fetch(
             `http://localhost:5000/reports/dismiss/${id}`,
             {
                 method: "PATCH",
+                headers: {
+                    authorization: `Bearer ${token?.token}`
+                },
             }
         );
 
@@ -52,17 +79,17 @@ export default function ReportsPage() {
     };
 
     // Remove Recipe
-    const handleRemoveRecipe = async (
-        recipeId,
-        reportId
-    ) => {
+    const handleRemoveRecipe = async (recipeId, reportId) => {
 
-
+        const { data: token } = await authClient.token();
 
         await fetch(
             `http://localhost:5000/recipes/${recipeId}`,
             {
                 method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${token?.token}`,
+                },
             }
         );
 
@@ -70,6 +97,9 @@ export default function ReportsPage() {
             `http://localhost:5000/reports/resolve/${reportId}`,
             {
                 method: "PATCH",
+                headers: {
+                    authorization: `Bearer ${token?.token}`,
+                },
             }
         );
 

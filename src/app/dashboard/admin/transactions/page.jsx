@@ -4,23 +4,46 @@ import { useEffect, useState } from "react";
 import { FaCreditCard, FaCheckCircle, FaTimesCircle, FaReceipt, FaCalendarAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Loader from "@/components/Loader";
+import { useSession } from "@/lib/auth-client";
 
 export default function TransactionsPage() {
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const { data: session } = useSession();
+
     useEffect(() => {
-        fetch("http://localhost:5000/payments")
-            .then((res) => res.json())
-            .then((data) => {
-                setTransactions(data)
+        const fetchTransactions = async () => {
+            if (!session?.user?.email) return;
+
+            setLoading(true);
+
+            try {
+                const { data: token } = await authClient.token();
+
+                const res = await fetch(
+                    "http://localhost:5000/payments",
+                    {
+                        headers: {
+                            authorization: `Bearer ${token?.token} `,
+                        },
+                    }
+                );
+
+                const data = await res.json();
+
+                setTransactions(data);
+            } catch (error) {
+                console.log(error);
+            } finally {
                 setLoading(false);
-            })
-            .catch((err) => {
-                console.error(err)
-                setLoading(false);
-            });
-    }, []);
+            }
+        };
+
+        fetchTransactions();
+
+
+    }, [session]);
 
     if (loading) {
         return <Loader />;
