@@ -5,17 +5,19 @@ import { useSession } from "@/lib/auth-client";
 import RecipeCard from "@/components/RecipeCard";
 import { FaBookOpen } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import Loader from "@/components/Loader";
 
 export default function MyRecipes() {
     const { data: session } = useSession();
 
     const [recipes, setRecipes] = useState([]);
-    // const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         if (!session?.user?.email) return;
 
-        // setLoading(true);
+        setLoading(true);
 
         fetch(`http://localhost:5000/my-recipes/${session.user.email}`)
             .then((res) => res.json())
@@ -48,6 +50,10 @@ export default function MyRecipes() {
             setRecipes((prev) => prev.filter((r) => r._id !== id));
         }
     };
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div className="min-h-full">

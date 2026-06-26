@@ -11,6 +11,7 @@ import {
     FaGlobe,
 } from "react-icons/fa";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
+import Loader from "@/components/Loader";
 
 const difficultyStyles = {
     Easy: "bg-green-100 text-green-700 border-green-200",
@@ -75,11 +76,7 @@ export default function FavoriteRecipes() {
     };
 
     if (loading) {
-        return (
-            <div className="text-center py-20">
-                Loading...
-            </div>
-        );
+        return <Loader />;
     }
 
     if (favorites.length === 0) {

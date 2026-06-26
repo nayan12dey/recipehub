@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaEye, FaClock, FaGlobe } from "react-icons/fa";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
+import Loader from "@/components/Loader";
 
 
 const difficultyStyles = {
@@ -26,14 +27,27 @@ const categoryStyles = {
 export default function PurchasedRecipes() {
     const { data: session } = useSession();
     const [recipes, setRecipes] = useState([]);
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         if (session?.user?.email) {
+            setLoading(true);
             fetch(`http://localhost:5000/purchases/${session.user.email}`)
                 .then(res => res.json())
-                .then(data => setRecipes(data));
+                .then(data => {
+                    setRecipes(data)
+                    setLoading(false);
+                });
+
         }
     }, [session]);
+
+
+    if (loading) {
+        return <Loader />;
+    }
+
 
     if (recipes.length === 0) {
         return (
@@ -43,11 +57,12 @@ export default function PurchasedRecipes() {
         );
     }
 
+
     return (
-       
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {recipes.map(recipe => (
-                <div 
+                <div
                     key={recipe._id}
                     className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
                 >

@@ -14,6 +14,7 @@ import {
     FaBookOpen,
     FaPlus,
 } from "react-icons/fa";
+import Loader from "@/components/Loader";
 
 /* ── tiny field-wrapper helpers ── */
 function FieldLabel({ icon: Icon, label, required }) {
@@ -42,6 +43,11 @@ export default function AddRecipePage() {
     const { data: session } = useSession();
     const [loading, setLoading] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
+
+
+    if (loading) {
+        return <Loader />;
+    }
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -204,7 +210,7 @@ export default function AddRecipePage() {
                         </div>
                     </div>
 
-                    
+
 
                     {/* ── Section 2 : Image Upload ── */}
                     <SectionHeader title="Recipe Photo" />
@@ -266,7 +272,7 @@ export default function AddRecipePage() {
                         )}
                     </div>
 
-                   
+
 
                     {/* ── Section 3 : Recipe Details ── */}
                     <SectionHeader title="Recipe Details" />
@@ -305,7 +311,7 @@ export default function AddRecipePage() {
                     <div className="px-6 py-5 bg-gray-50/80 border-t border-gray-100">
                         <button
                             type="submit"
-                           
+
                             className="
                                 w-full py-3.5 rounded-2xl
                                 bg-gradient-to-r from-orange-500 to-red-500
