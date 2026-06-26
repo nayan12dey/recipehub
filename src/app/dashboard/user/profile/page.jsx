@@ -6,16 +6,25 @@ import { Button } from "@heroui/react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { FaCrown, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import Loader from "@/components/Loader";
 
 export default function ProfilePage() {
     const { data: session } = useSession();
     const [userData, setUserData] = useState();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (session?.user?.email) {
+            setLoading(true);
             fetch(`http://localhost:5000/user/${session?.user?.email}`)
                 .then(res => res.json())
-                .then(data => setUserData(data));
+                .then(data => {
+                    setUserData(data)
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
         }
     }, [session]);
 
@@ -48,6 +57,10 @@ export default function ProfilePage() {
     };
 
     const isPremium = userData?.plan === "premium";
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 p-6 flex items-center">
@@ -115,7 +128,7 @@ export default function ProfilePage() {
 
                 {/* PREMIUM/UPGRADE SECTION */}
                 {isPremium ? (
-                    
+
                     <div className="backdrop-blur-md bg-white/40 border border-white/60 rounded-3xl shadow-lg p-6 text-gray-800 max-w-md mx-auto md:w-full">
                         <div className="flex justify-between items-center mb-4">
                             <div>
@@ -131,7 +144,7 @@ export default function ProfilePage() {
                             </div>
                         </div>
 
-                        
+
                         <div className="space-y-3.5 mt-6 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-white/40">
                             <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
                                 <FaCheckCircle className="text-emerald-500 text-base" />
