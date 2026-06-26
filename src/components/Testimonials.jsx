@@ -27,20 +27,86 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-orange-50 to-white">
+    // <section className="py-24 bg-gradient-to-b from-orange-50 to-white">
+    //   <div className="max-w-7xl mx-auto px-6">
+
+    //     {/* Header */}
+    //     <div className="text-center">
+    //       <span className="inline-block px-4 py-2 rounded-full bg-orange-100 text-orange-600 text-sm font-medium">
+    //         Testimonials
+    //       </span>
+
+    //       <h2 className="mt-4 text-4xl font-extrabold text-gray-900">
+    //         What Our Food Lovers Say
+    //       </h2>
+
+    //       <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+    //         Thousands of home cooks trust RecipeHub to discover, cook,
+    //         and share amazing recipes every day.
+    //       </p>
+    //     </div>
+
+    //     {/* Cards */}
+    //     <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    //       {testimonials.map((item) => (
+    //         <div
+    //           key={item.name}
+    //           className="relative bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
+    //         >
+
+    //           {/* Stars */}
+    //           <div className="flex gap-1 text-orange-500">
+    //             {[...Array(5)].map((_, i) => (
+    //               <FaStar key={i} />
+    //             ))}
+    //           </div>
+
+    //           {/* Feedback */}
+    //           <p className="mt-5 text-gray-600 leading-relaxed">
+    //             “{item.feedback}”
+    //           </p>
+
+    //           {/* User */}
+    //           <div className="mt-7 flex items-center gap-4">
+    //             <Image
+    //               src={item.image}
+    //               alt={item.name}
+    //               width={48}
+    //               height={48}
+    //               className="rounded-full object-cover border-2 border-orange-100"
+    //             />
+
+    //             <div>
+    //               <h3 className="font-semibold text-gray-900">
+    //                 {item.name}
+    //               </h3>
+    //               <p className="text-sm text-gray-500">
+    //                 {item.role}
+    //               </p>
+    //             </div>
+    //           </div>
+
+    //         </div>
+    //       ))}
+    //     </div>
+
+    //   </div>
+    // </section>
+
+    <section className="py-24 bg-gradient-to-b from-orange-50 to-white dark:from-gray-950 dark:to-black transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
         <div className="text-center">
-          <span className="inline-block px-4 py-2 rounded-full bg-orange-100 text-orange-600 text-sm font-medium">
+          <span className="inline-block px-4 py-2 rounded-full bg-orange-100 dark:bg-orange-950/50 text-orange-600 dark:text-orange-400 text-sm font-medium">
             Testimonials
           </span>
 
-          <h2 className="mt-4 text-4xl font-extrabold text-gray-900">
+          <h2 className="mt-4 text-4xl font-extrabold text-gray-900 dark:text-gray-50 tracking-tight">
             What Our Food Lovers Say
           </h2>
 
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
             Thousands of home cooks trust RecipeHub to discover, cook,
             and share amazing recipes every day.
           </p>
@@ -51,36 +117,36 @@ export default function Testimonials() {
           {testimonials.map((item) => (
             <div
               key={item.name}
-              className="relative bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
+              className="relative bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-100 dark:border-gray-800/60 shadow-sm hover:shadow-xl dark:hover:shadow-black/40 transition-all duration-300"
             >
 
               {/* Stars */}
-              <div className="flex gap-1 text-orange-500">
+              <div className="flex gap-1 text-orange-500 dark:text-orange-400">
                 {[...Array(5)].map((_, i) => (
                   <FaStar key={i} />
                 ))}
               </div>
 
               {/* Feedback */}
-              <p className="mt-5 text-gray-600 leading-relaxed">
+              <p className="mt-5 text-gray-600 dark:text-gray-300 leading-relaxed italic">
                 “{item.feedback}”
               </p>
 
-              {/* User */}
+              {/* User Info */}
               <div className="mt-7 flex items-center gap-4">
                 <Image
                   src={item.image}
                   alt={item.name}
                   width={48}
                   height={48}
-                  className="rounded-full object-cover border-2 border-orange-100"
+                  className="rounded-full object-cover border-2 border-orange-100 dark:border-gray-700"
                 />
 
                 <div>
-                  <h3 className="font-semibold text-gray-900">
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-50">
                     {item.name}
                   </h3>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
                     {item.role}
                   </p>
                 </div>
