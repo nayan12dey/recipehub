@@ -23,7 +23,9 @@ export default function FeaturedRecipes() {
             });
     }, []);
 
-    
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <section className="relative overflow-hidden py-24 bg-gradient-to-b from-orange-50 via-white to-orange-50">
