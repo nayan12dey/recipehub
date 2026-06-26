@@ -4,15 +4,29 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Clock, Utensils, ChevronRight } from "lucide-react";
+import Loader from "@/components/Loader";
 
 export default function BrowseRecipes() {
     const [recipes, setRecipes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
+
         fetch("http://localhost:5000/recipes")
             .then((res) => res.json())
-            .then((data) => setRecipes(data));
+            .then((data) => {
+                setRecipes(data)
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+            });
     }, []);
+
+    if (loading) {
+    return <Loader />;
+}
 
     return (
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
