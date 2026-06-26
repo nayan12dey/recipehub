@@ -61,7 +61,299 @@ export default async function RecipeDetails({ params }) {
             : [];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
+        // <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
+
+        //     {/* ── HERO SECTION ── */}
+        //     <section className="relative h-[70vh] min-h-[500px] overflow-hidden">
+
+        //         {/* Hero Image */}
+        //         <Image
+        //             src={recipe.recipeImage}
+        //             alt={recipe.recipeName}
+        //             fill
+        //             priority
+        //             sizes="100vw"
+        //             className="object-cover"
+        //         />
+
+        //         {/* Gradient Overlay */}
+        //         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+        //         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+
+        //         {/* Back Button */}
+        //         <div className="absolute top-6 left-6 z-10">
+        //             <Link
+        //                 href="/recipes"
+        //                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/15 backdrop-blur-md border border-white/25 text-white text-sm font-medium hover:bg-white/25 transition-all duration-300 group"
+        //             >
+        //                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+        //                 Back to Recipes
+        //             </Link>
+        //         </div>
+
+        //         {/* Hero Content */}
+        //         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 z-10">
+        //             <div className="max-w-5xl mx-auto">
+
+        //                 {/* Badges */}
+        //                 <div className="flex flex-wrap gap-2 mb-4">
+        //                     {recipe.category && (
+        //                         <span className="px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/90 text-white backdrop-blur-sm">
+        //                             {recipe.category}
+        //                         </span>
+        //                     )}
+        //                     {recipe.cuisineType && (
+        //                         <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white border border-white/30 backdrop-blur-sm">
+        //                             🌍 {recipe.cuisineType}
+        //                         </span>
+        //                     )}
+        //                     {recipe.difficultyLevel && (
+        //                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${difficultyClass} backdrop-blur-sm`}>
+        //                             <span className={`inline-block w-1.5 h-1.5 rounded-full ${dotClass} mr-1.5`} />
+        //                             {recipe.difficultyLevel}
+        //                         </span>
+        //                     )}
+        //                 </div>
+
+        //                 {/* Title */}
+        //                 <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg">
+        //                     {recipe.recipeName}
+        //                 </h1>
+
+        //                 {/* Quick Stats */}
+        //                 <div className="flex flex-wrap items-center gap-4 text-white/90">
+        //                     {recipe.preparationTime && (
+        //                         <div className="flex items-center gap-1.5 text-sm font-medium">
+        //                             <Clock className="w-4 h-4 text-orange-300" />
+        //                             <span>{recipe.preparationTime}</span>
+        //                         </div>
+        //                     )}
+        //                     {recipe.authorName && (
+        //                         <div className="flex items-center gap-1.5 text-sm font-medium">
+        //                             <ChefHat className="w-4 h-4 text-orange-300" />
+        //                             <span>by {recipe.authorName}</span>
+        //                         </div>
+        //                     )}
+        //                     {recipe.likesCount !== undefined && (
+        //                         <div className="flex items-center gap-1.5 text-sm font-medium">
+        //                             <Heart className="w-4 h-4 text-red-400 fill-red-400" />
+        //                             <span>{recipe.likesCount} likes</span>
+        //                         </div>
+        //                     )}
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </section>
+
+        //     {/* ── MAIN CONTENT ── */}
+        //     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        //         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        //             {/*  LEFT: Ingredients + Instructions  */}
+        //             <div className="lg:col-span-2 space-y-8">
+
+        //                 {/* Ingredients Card */}
+        //                 <div className="bg-white rounded-3xl shadow-sm border border-orange-100 overflow-hidden">
+        //                     <div className="flex items-center gap-3 px-6 py-5 bg-gradient-to-r from-orange-500 to-red-500">
+        //                         <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+        //                             <Utensils className="w-5 h-5 text-white" />
+        //                         </div>
+        //                         <h2 className="text-xl font-bold text-white">Ingredients</h2>
+        //                     </div>
+
+        //                     <div className="p-6">
+        //                         {ingredients.length > 0 ? (
+        //                             <ul className="space-y-3">
+        //                                 {ingredients.map((item, index) => (
+        //                                     <li
+        //                                         key={index}
+        //                                         className="flex items-start gap-3 group"
+        //                                     >
+        //                                         <span className="mt-0.5 w-6 h-6 rounded-full bg-orange-100 text-orange-600 text-xs font-bold flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-200">
+        //                                             {index + 1}
+        //                                         </span>
+        //                                         <span className="text-gray-700 leading-relaxed">
+        //                                             {item}
+        //                                         </span>
+        //                                     </li>
+        //                                 ))}
+        //                             </ul>
+        //                         ) : (
+        //                             <p className="text-gray-500 italic">{recipe.ingredients}</p>
+        //                         )}
+        //                     </div>
+        //                 </div>
+
+        //                 {/* Instructions Card */}
+        //                 <div className="bg-white rounded-3xl shadow-sm border border-orange-100 overflow-hidden">
+        //                     <div className="flex items-center gap-3 px-6 py-5 bg-gradient-to-r from-red-500 to-orange-500">
+        //                         <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+        //                             <BookOpen className="w-5 h-5 text-white" />
+        //                         </div>
+        //                         <h2 className="text-xl font-bold text-white">Instructions</h2>
+        //                     </div>
+
+        //                     <div className="p-6">
+        //                         {instructions.length > 0 ? (
+        //                             <ol className="space-y-5">
+        //                                 {instructions.map((step, index) => (
+        //                                     <li key={index} className="flex gap-4 group">
+        //                                         <div className="flex-shrink-0">
+        //                                             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-red-500 text-white text-sm font-bold flex items-center justify-center shadow-md">
+        //                                                 {index + 1}
+        //                                             </div>
+        //                                             {index < instructions.length - 1 && (
+        //                                                 <div className="w-0.5 h-full ml-4 mt-2 bg-gradient-to-b from-orange-200 to-transparent" />
+        //                                             )}
+        //                                         </div>
+        //                                         <div className="pb-5">
+        //                                             <p className="text-gray-700 leading-relaxed">{step}</p>
+        //                                         </div>
+        //                                     </li>
+        //                                 ))}
+        //                             </ol>
+        //                         ) : (
+        //                             <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+        //                                 {recipe.instructions}
+        //                             </p>
+        //                         )}
+        //                     </div>
+        //                 </div>
+        //             </div>
+
+        //             {/*  RIGHT: Info + Actions */}
+        //             <div className="space-y-6">
+
+        //                 {/* Recipe Info Card */}
+        //                 <div className="bg-white rounded-3xl shadow-sm border border-orange-100 p-6 space-y-4">
+        //                     <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">
+        //                         Recipe Info
+        //                     </h3>
+
+        //                     {recipe.preparationTime && (
+        //                         <div className="flex items-center gap-3 p-3 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors group">
+        //                             <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+        //                                 <Clock className="w-5 h-5 text-white" />
+        //                             </div>
+        //                             <div>
+        //                                 <p className="text-xs text-gray-400 font-medium">Prep Time</p>
+        //                                 <p className="text-sm font-bold text-gray-800">{recipe.preparationTime}</p>
+        //                             </div>
+        //                         </div>
+        //                     )}
+
+        //                     {recipe.difficultyLevel && (
+        //                         <div className="flex items-center gap-3 p-3 rounded-2xl bg-red-50 hover:bg-red-100 transition-colors group">
+        //                             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+        //                                 <Flame className="w-5 h-5 text-white" />
+        //                             </div>
+        //                             <div>
+        //                                 <p className="text-xs text-gray-400 font-medium">Difficulty</p>
+        //                                 <p className="text-sm font-bold text-gray-800">{recipe.difficultyLevel}</p>
+        //                             </div>
+        //                         </div>
+        //                     )}
+
+        //                     {recipe.cuisineType && (
+        //                         <div className="flex items-center gap-3 p-3 rounded-2xl bg-amber-50 hover:bg-amber-100 transition-colors group">
+        //                             <div className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+        //                                 <Utensils className="w-5 h-5 text-white" />
+        //                             </div>
+        //                             <div>
+        //                                 <p className="text-xs text-gray-400 font-medium">Cuisine</p>
+        //                                 <p className="text-sm font-bold text-gray-800">{recipe.cuisineType}</p>
+        //                             </div>
+        //                         </div>
+        //                     )}
+
+        //                     {recipe.category && (
+        //                         <div className="flex items-center gap-3 p-3 rounded-2xl bg-rose-50 hover:bg-rose-100 transition-colors group">
+        //                             <div className="w-10 h-10 rounded-xl bg-rose-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+        //                                 <Star className="w-5 h-5 text-white" />
+        //                             </div>
+        //                             <div>
+        //                                 <p className="text-xs text-gray-400 font-medium">Category</p>
+        //                                 <p className="text-sm font-bold text-gray-800">{recipe.category}</p>
+        //                             </div>
+        //                         </div>
+        //                     )}
+
+        //                     {recipe.authorName && (
+        //                         <div className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors group">
+        //                             <div className="w-10 h-10 rounded-xl bg-gray-700 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+        //                                 <ChefHat className="w-5 h-5 text-white" />
+        //                             </div>
+        //                             <div>
+        //                                 <p className="text-xs text-gray-400 font-medium">Chef</p>
+        //                                 <p className="text-sm font-bold text-gray-800">{recipe.authorName}</p>
+        //                             </div>
+        //                         </div>
+        //                     )}
+
+        //                     {recipe.likesCount !== undefined && (
+        //                         <div className="flex items-center gap-3 p-3 rounded-2xl bg-pink-50 hover:bg-pink-100 transition-colors group">
+        //                             <div className="w-10 h-10 rounded-xl bg-pink-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+        //                                 <Users className="w-5 h-5 text-white" />
+        //                             </div>
+        //                             <div>
+        //                                 <p className="text-xs text-gray-400 font-medium">Community Likes</p>
+        //                                 <p className="text-sm font-bold text-gray-800">{recipe.likesCount}</p>
+        //                             </div>
+        //                         </div>
+        //                     )}
+        //                 </div>
+
+        //                 {/* Action Buttons Card */}
+        //                 <div className="bg-white rounded-3xl shadow-sm border border-orange-100 p-6 space-y-3">
+        //                     <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">
+        //                         Actions
+        //                     </h3>
+
+        //                     {/* Purchase Recipe */}
+
+        //                     <form action={`/api/recipe_checkout?recipeId=${recipe._id}`} method="POST">
+        //                         <section>
+        //                             <button type="submit" role="link" className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm shadow-lg shadow-orange-200 hover:shadow-orange-300 hover:from-orange-600 hover:to-red-600 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+        //                                 <ShoppingBag className="w-4 h-4" />
+        //                                 Purchase Recipe
+        //                             </button>
+        //                         </section>
+        //                     </form>
+
+
+        //                     {/* <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm shadow-lg shadow-orange-200 hover:shadow-orange-300 hover:from-orange-600 hover:to-red-600 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+        //                         <ShoppingBag className="w-4 h-4" />
+        //                         Purchase Recipe
+        //                     </button> */}
+
+        //                     {/* Like */}
+        //                     <LikeAction recipeId={recipe._id} ></LikeAction>
+
+        //                     {/* Add Favourite */}
+        //                     <FavoriteAction recipe={recipe}></FavoriteAction>
+
+        //                     {/* <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold text-sm border border-amber-200 hover:border-amber-300 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+        //                         <Star className="w-4 h-4" />
+        //                         Add to Favourites
+        //                     </button> */}
+
+        //                     {/* Report */}
+
+        //                     <ReportModal recipe={recipe}></ReportModal>
+
+
+        //                     {/* <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3 rounded-2xl bg-transparent hover:bg-red-50 text-gray-400 hover:text-red-500 font-medium text-sm border border-gray-200 hover:border-red-200 transition-all duration-200">
+        //                         <Flag className="w-4 h-4" />
+        //                         Report Recipe
+        //                     </button> */}
+        //                 </div>
+        //             </div>
+
+        //         </div>
+        //     </div>
+        // </div>
+
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-950 dark:via-gray-900 dark:to-zinc-950 transition-colors duration-300">
 
             {/* ── HERO SECTION ── */}
             <section className="relative h-[70vh] min-h-[500px] overflow-hidden">
@@ -77,14 +369,14 @@ export default async function RecipeDetails({ params }) {
                 />
 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
 
                 {/* Back Button */}
                 <div className="absolute top-6 left-6 z-10">
                     <Link
                         href="/recipes"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/15 backdrop-blur-md border border-white/25 text-white text-sm font-medium hover:bg-white/25 transition-all duration-300 group"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/15 dark:bg-black/30 backdrop-blur-md border border-white/25 dark:border-white/10 text-white text-sm font-medium hover:bg-white/25 dark:hover:bg-black/50 transition-all duration-300 group"
                     >
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                         Back to Recipes
@@ -153,7 +445,7 @@ export default async function RecipeDetails({ params }) {
                     <div className="lg:col-span-2 space-y-8">
 
                         {/* Ingredients Card */}
-                        <div className="bg-white rounded-3xl shadow-sm border border-orange-100 overflow-hidden">
+                        <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm dark:shadow-black/30 border border-orange-100 dark:border-gray-800/60 overflow-hidden transition-all duration-300">
                             <div className="flex items-center gap-3 px-6 py-5 bg-gradient-to-r from-orange-500 to-red-500">
                                 <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
                                     <Utensils className="w-5 h-5 text-white" />
@@ -169,23 +461,23 @@ export default async function RecipeDetails({ params }) {
                                                 key={index}
                                                 className="flex items-start gap-3 group"
                                             >
-                                                <span className="mt-0.5 w-6 h-6 rounded-full bg-orange-100 text-orange-600 text-xs font-bold flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-200">
+                                                <span className="mt-0.5 w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 text-xs font-bold flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500 group-hover:text-white dark:group-hover:text-white transition-colors duration-200">
                                                     {index + 1}
                                                 </span>
-                                                <span className="text-gray-700 leading-relaxed">
+                                                <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
                                                     {item}
                                                 </span>
                                             </li>
                                         ))}
                                     </ul>
                                 ) : (
-                                    <p className="text-gray-500 italic">{recipe.ingredients}</p>
+                                    <p className="text-gray-500 dark:text-gray-400 italic">{recipe.ingredients}</p>
                                 )}
                             </div>
                         </div>
 
                         {/* Instructions Card */}
-                        <div className="bg-white rounded-3xl shadow-sm border border-orange-100 overflow-hidden">
+                        <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm dark:shadow-black/30 border border-orange-100 dark:border-gray-800/60 overflow-hidden transition-all duration-300">
                             <div className="flex items-center gap-3 px-6 py-5 bg-gradient-to-r from-red-500 to-orange-500">
                                 <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
                                     <BookOpen className="w-5 h-5 text-white" />
@@ -203,17 +495,17 @@ export default async function RecipeDetails({ params }) {
                                                         {index + 1}
                                                     </div>
                                                     {index < instructions.length - 1 && (
-                                                        <div className="w-0.5 h-full ml-4 mt-2 bg-gradient-to-b from-orange-200 to-transparent" />
+                                                        <div className="w-0.5 h-full ml-4 mt-2 bg-gradient-to-b from-orange-200 to-transparent dark:from-gray-700" />
                                                     )}
                                                 </div>
                                                 <div className="pb-5">
-                                                    <p className="text-gray-700 leading-relaxed">{step}</p>
+                                                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{step}</p>
                                                 </div>
                                             </li>
                                         ))}
                                     </ol>
                                 ) : (
-                                    <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
                                         {recipe.instructions}
                                     </p>
                                 )}
@@ -225,130 +517,110 @@ export default async function RecipeDetails({ params }) {
                     <div className="space-y-6">
 
                         {/* Recipe Info Card */}
-                        <div className="bg-white rounded-3xl shadow-sm border border-orange-100 p-6 space-y-4">
-                            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">
+                        <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm dark:shadow-black/30 border border-orange-100 dark:border-gray-800/60 p-6 space-y-4 transition-all duration-300">
+                            <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">
                                 Recipe Info
                             </h3>
 
                             {recipe.preparationTime && (
-                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors group">
+                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-orange-50 dark:bg-orange-950/20 hover:bg-orange-100 dark:hover:bg-orange-950/40 transition-colors group">
                                     <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                                         <Clock className="w-5 h-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-gray-400 font-medium">Prep Time</p>
-                                        <p className="text-sm font-bold text-gray-800">{recipe.preparationTime}</p>
+                                        <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">Prep Time</p>
+                                        <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{recipe.preparationTime}</p>
                                     </div>
                                 </div>
                             )}
 
                             {recipe.difficultyLevel && (
-                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-red-50 hover:bg-red-100 transition-colors group">
+                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-red-50 dark:bg-red-950/20 hover:bg-red-100 dark:hover:bg-red-950/40 transition-colors group">
                                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                                         <Flame className="w-5 h-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-gray-400 font-medium">Difficulty</p>
-                                        <p className="text-sm font-bold text-gray-800">{recipe.difficultyLevel}</p>
+                                        <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">Difficulty</p>
+                                        <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{recipe.difficultyLevel}</p>
                                     </div>
                                 </div>
                             )}
 
                             {recipe.cuisineType && (
-                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-amber-50 hover:bg-amber-100 transition-colors group">
+                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/20 hover:bg-amber-100 dark:hover:bg-amber-950/40 transition-colors group">
                                     <div className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                                         <Utensils className="w-5 h-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-gray-400 font-medium">Cuisine</p>
-                                        <p className="text-sm font-bold text-gray-800">{recipe.cuisineType}</p>
+                                        <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">Cuisine</p>
+                                        <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{recipe.cuisineType}</p>
                                     </div>
                                 </div>
                             )}
 
                             {recipe.category && (
-                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-rose-50 hover:bg-rose-100 transition-colors group">
+                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-rose-50 dark:bg-rose-950/20 hover:bg-rose-100 dark:hover:bg-rose-950/40 transition-colors group">
                                     <div className="w-10 h-10 rounded-xl bg-rose-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                                         <Star className="w-5 h-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-gray-400 font-medium">Category</p>
-                                        <p className="text-sm font-bold text-gray-800">{recipe.category}</p>
+                                        <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">Category</p>
+                                        <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{recipe.category}</p>
                                     </div>
                                 </div>
                             )}
 
                             {recipe.authorName && (
-                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors group">
-                                    <div className="w-10 h-10 rounded-xl bg-gray-700 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800/80 transition-colors group">
+                                    <div className="w-10 h-10 rounded-xl bg-gray-700 dark:bg-gray-600 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                                         <ChefHat className="w-5 h-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-gray-400 font-medium">Chef</p>
-                                        <p className="text-sm font-bold text-gray-800">{recipe.authorName}</p>
+                                        <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">Chef</p>
+                                        <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{recipe.authorName}</p>
                                     </div>
                                 </div>
                             )}
 
                             {recipe.likesCount !== undefined && (
-                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-pink-50 hover:bg-pink-100 transition-colors group">
+                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-pink-50 dark:bg-pink-950/20 hover:bg-pink-100 dark:hover:bg-pink-950/40 transition-colors group">
                                     <div className="w-10 h-10 rounded-xl bg-pink-500 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                                         <Users className="w-5 h-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-gray-400 font-medium">Community Likes</p>
-                                        <p className="text-sm font-bold text-gray-800">{recipe.likesCount}</p>
+                                        <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">Community Likes</p>
+                                        <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{recipe.likesCount}</p>
                                     </div>
                                 </div>
                             )}
                         </div>
 
                         {/* Action Buttons Card */}
-                        <div className="bg-white rounded-3xl shadow-sm border border-orange-100 p-6 space-y-3">
-                            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">
+                        <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm dark:shadow-black/30 border border-orange-100 dark:border-gray-800/60 p-6 space-y-3 transition-all duration-300">
+                            <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">
                                 Actions
                             </h3>
 
                             {/* Purchase Recipe */}
-
                             <form action={`/api/recipe_checkout?recipeId=${recipe._id}`} method="POST">
                                 <section>
-                                    <button type="submit" role="link" className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm shadow-lg shadow-orange-200 hover:shadow-orange-300 hover:from-orange-600 hover:to-red-600 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+                                    <button type="submit" role="link" className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm shadow-lg shadow-orange-200 dark:shadow-none hover:from-orange-600 hover:to-red-600 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
                                         <ShoppingBag className="w-4 h-4" />
                                         Purchase Recipe
                                     </button>
                                 </section>
                             </form>
 
-
-                            {/* <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm shadow-lg shadow-orange-200 hover:shadow-orange-300 hover:from-orange-600 hover:to-red-600 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
-                                <ShoppingBag className="w-4 h-4" />
-                                Purchase Recipe
-                            </button> */}
-
-                            {/* Like */}
-                            <LikeAction recipeId={recipe._id} ></LikeAction>
+                            {/* Like Action Component wrapper layout handles internally or passes styling props if needed */}
+                            <LikeAction recipeId={recipe._id}></LikeAction>
 
                             {/* Add Favourite */}
                             <FavoriteAction recipe={recipe}></FavoriteAction>
 
-                            {/* <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold text-sm border border-amber-200 hover:border-amber-300 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
-                                <Star className="w-4 h-4" />
-                                Add to Favourites
-                            </button> */}
-
                             {/* Report */}
-
                             <ReportModal recipe={recipe}></ReportModal>
-
-
-                            {/* <button className="w-full flex items-center justify-center gap-2.5 px-5 py-3 rounded-2xl bg-transparent hover:bg-red-50 text-gray-400 hover:text-red-500 font-medium text-sm border border-gray-200 hover:border-red-200 transition-all duration-200">
-                                <Flag className="w-4 h-4" />
-                                Report Recipe
-                            </button> */}
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
