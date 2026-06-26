@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaFire } from "react-icons/fa";
 import PopularRecipeCard from "./PopularRecipeCard";
+import Loader from "./Loader";
 
 export default function PopularRecipes() {
     const [recipes, setRecipes] = useState([]);
@@ -21,6 +22,10 @@ export default function PopularRecipes() {
                 setLoading(false);
             });
     }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <section className="relative overflow-hidden py-24 bg-gradient-to-b from-orange-50 via-white to-orange-50">
