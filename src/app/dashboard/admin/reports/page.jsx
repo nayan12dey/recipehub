@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ShieldAlert, AlertCircle } from "lucide-react";
 import ReportsTable from "@/components/ReportsTable";
 import toast from "react-hot-toast";
+import Loader from "@/components/Loader";
 
 export default function ReportsPage() {
     const [reports, setReports] = useState([]);
@@ -85,6 +86,10 @@ export default function ReportsPage() {
             )
         );
     };
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <main className="relative min-h-screen overflow-hidden py-12 bg-gradient-to-b from-gray-50 via-white to-gray-50">
