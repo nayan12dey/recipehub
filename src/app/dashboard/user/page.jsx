@@ -1,7 +1,7 @@
 "use client";
 
 import Loader from "@/components/Loader";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import { FaUtensils, FaHeart, FaThumbsUp, FaChartLine } from "react-icons/fa";
 
@@ -11,16 +11,35 @@ export default function DashboardOverview() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!session?.user?.email) return;
+        const fetchDashboardData = async () => {
+            if (!session?.user?.email) return;
 
-        setLoading(true);
-        fetch(`http://localhost:5000/dashboard/${session.user.email}`)
-            .then((res) => res.json())
-            .then((data) => {
+            setLoading(true);
+
+            try {
+                const { data: token } =
+                    await authClient.token();
+
+                const res = await fetch(
+                    `http://localhost:5000/dashboard/${session.user.email}`,
+                    {
+                        headers: {
+                            authorization: `Bearer ${token?.token}`,
+                        },
+                    }
+                );
+
+                const data = await res.json();
+
                 setStats(data);
+            } catch (error) {
+                console.log(error);
+            } finally {
                 setLoading(false);
-            })
-            .catch(() => setLoading(false));
+            }
+        };
+
+        fetchDashboardData();
     }, [session?.user?.email]);
 
     const statCards = [

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import { Button } from "@heroui/react";
 import Image from "next/image";
@@ -13,19 +13,33 @@ export default function ProfilePage() {
     const [userData, setUserData] = useState();
     const [loading, setLoading] = useState(true);
 
+
     useEffect(() => {
-        if (session?.user?.email) {
+        const fetchUser = async () => {
+
+            if (!session?.user?.email) return;
+
             setLoading(true);
-            fetch(`http://localhost:5000/user/${session?.user?.email}`)
-                .then(res => res.json())
-                .then(data => {
-                    setUserData(data)
-                    setLoading(false);
-                })
-                .catch(() => {
-                    setLoading(false);
-                });
-        }
+
+            const { data: token } =
+                await authClient.token();
+
+            const res = await fetch(
+                `http://localhost:5000/user/${session.user.email}`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token?.token}`,
+                    },
+                }
+            );
+
+            const data = await res.json();
+
+            setUserData(data);
+            setLoading(false);
+        };
+
+        fetchUser();
     }, [session]);
 
     const handleUpdate = async (e) => {
@@ -37,12 +51,15 @@ export default function ProfilePage() {
             image: form.image.value,
         };
 
+        const { data: token } = await authClient.token();
+
         const res = await fetch(
             `http://localhost:5000/user/${session?.user?.email}`,
             {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    authorization: `Bearer ${token?.token}`,
                 },
                 body: JSON.stringify(updatedUser),
             }
@@ -72,7 +89,7 @@ export default function ProfilePage() {
                     <div className="text-center mb-6">
                         <div className="flex justify-center mb-4">
                             <Image
-                                src={session?.user?.image || "/avatar.png"}
+                                src={userData?.image || "/avatar.png"}
                                 width={120}
                                 height={120}
                                 alt="profile"
@@ -81,7 +98,7 @@ export default function ProfilePage() {
                         </div>
 
                         <h1 className="text-2xl font-bold text-gray-800">
-                            {session?.user?.name}
+                            {userData?.name}
                         </h1>
 
                         <p className="text-gray-500 mt-1">
@@ -102,7 +119,7 @@ export default function ProfilePage() {
                             <input
                                 type="text"
                                 name="name"
-                                defaultValue={session?.user?.name}
+                                defaultValue={userData?.name}
                                 className="w-full mt-1 p-3 border rounded-xl outline-none focus:border-orange-400"
                             />
                         </div>
@@ -112,7 +129,7 @@ export default function ProfilePage() {
                             <input
                                 type="text"
                                 name="image"
-                                defaultValue={session?.user?.image}
+                                defaultValue={userData?.image}
                                 className="w-full mt-1 p-3 border rounded-xl outline-none focus:border-orange-400"
                             />
                         </div>

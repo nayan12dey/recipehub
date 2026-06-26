@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaEye, FaClock, FaGlobe } from "react-icons/fa";
@@ -31,16 +31,34 @@ export default function PurchasedRecipes() {
 
 
     useEffect(() => {
-        if (session?.user?.email) {
-            setLoading(true);
-            fetch(`http://localhost:5000/purchases/${session.user.email}`)
-                .then(res => res.json())
-                .then(data => {
-                    setRecipes(data)
-                    setLoading(false);
-                });
+        const fetchPurchasedRecipes = async () => {
+            if (!session?.user?.email) return;
 
-        }
+            try {
+                setLoading(true);
+
+                const { data: token } = await authClient.token();
+
+                const res = await fetch(
+                    `http://localhost:5000/purchases/${session.user.email}`,
+                    {
+                        headers: {
+                            authorization: `Bearer ${token?.token}`,
+                        },
+                    }
+                );
+
+                const data = await res.json();
+
+                setRecipes(data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPurchasedRecipes();
     }, [session]);
 
 

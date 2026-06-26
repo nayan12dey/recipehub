@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -37,17 +37,28 @@ export default function FavoriteRecipes() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (session?.user?.email) {
-            fetch(
-                `http://localhost:5000/favorites/${session.user.email}`
-            )
-                .then((res) => res.json())
-                .then((data) => {
-                    setFavorites(data);
-                    setLoading(false);
-                });
-        }
-    }, [session]);
+    const fetchFavorites = async () => {
+        if (!session?.user?.email) return;
+
+        const { data: token } = await authClient.token();
+
+        const res = await fetch(
+            `http://localhost:5000/favorites/${session.user.email}`,
+            {
+                headers: {
+                    authorization: `Bearer ${token?.token}`,
+                },
+            }
+        );
+
+        const result = await res.json();
+
+        setFavorites(result);
+        setLoading(false);
+    };
+
+    fetchFavorites();
+}, [session]);
 
     const handleRemoveFavorite = async (id) => {
 

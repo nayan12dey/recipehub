@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import {
     FaUtensils,
@@ -92,9 +92,15 @@ export default function AddRecipePage() {
 
         console.log(recipe)
 
+        const { data: token } = await authClient.token()
+        console.log(token.token)  
+
         const res = await fetch("http://localhost:5000/recipes", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token?.token}`
+            },
             body: JSON.stringify(recipe),
         });
 

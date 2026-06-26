@@ -5,6 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import {
     FaHome,
@@ -25,6 +26,30 @@ import {
 
 const DashboardSideBar = () => {
     const { data: session } = useSession();
+    const [profile, setProfile] = useState(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            if (!session?.user?.email) return;
+
+            const { data: token } = await authClient.token();
+
+            const res = await fetch(
+                `http://localhost:5000/user/${session.user.email}`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token?.token}`,
+                    },
+                }
+            );
+
+            const data = await res.json();
+            setProfile(data);
+        };
+
+        fetchUser();
+    }, [session]);
+
     const pathname = usePathname();
 
     const handleLogout = async () => {
@@ -142,7 +167,7 @@ const DashboardSideBar = () => {
                         {/* Info */}
                         <div className="overflow-hidden flex-1 min-w-0">
                             <p className="text-gray-800 text-sm font-bold truncate leading-tight">
-                                {session?.user?.name || "Guest User"}
+                                {profile?.name || session?.user?.name}
                             </p>
                             <div className="flex items-center gap-1 mt-0.5">
                                 {isAdmin && <FaCrown size={9} className="text-yellow-500 shrink-0" />}
@@ -185,7 +210,7 @@ const DashboardSideBar = () => {
                                 `}
                             >
 
-                            
+
                                 {/* Active left bar */}
                                 {isActive && (
                                     <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-gradient-to-b from-orange-500 to-red-500 rounded-r-full" />
@@ -214,7 +239,7 @@ const DashboardSideBar = () => {
                 </nav>
 
                 {/* ── Premium Banner (non-premium users) ── */}
-                {!isPremium && !isAdmin && (
+                {/* {!isPremium && !isAdmin && (
                     <div className="mx-3 mb-3">
                         <div className="p-4 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 relative overflow-hidden shadow-md shadow-orange-200">
                             <div className="absolute -top-3 -right-3 w-16 h-16 bg-white/10 rounded-full" />
@@ -234,7 +259,7 @@ const DashboardSideBar = () => {
                             </Link>
                         </div>
                     </div>
-                )}
+                )} */}
 
                 {/* ── Premium Badge (premium members) ── */}
                 {isPremium && !isAdmin && (

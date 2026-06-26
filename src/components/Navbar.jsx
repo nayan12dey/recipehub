@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
@@ -21,6 +21,34 @@ export default function Navbar() {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
+ 
+
+  const [profile, setProfile] = useState(null);
+  //  console.log(profile)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!session?.user?.email) return;
+
+      const { data: token } = await authClient.token();
+
+      const res = await fetch(
+        `http://localhost:5000/user/${session.user.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${token?.token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+      setProfile(data);
+    };
+
+    fetchUser();
+  }, [session]);
+
+
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -97,13 +125,13 @@ export default function Navbar() {
                 <Dropdown>
                   <Dropdown.Trigger className="rounded-full">
                     <Avatar size="lg">
-                      <Avatar.Image   
-                        src={user?.image}
-                        alt={user?.name}
+                      <Avatar.Image
+                        src={profile?.image || user?.image}
+                        alt={profile?.name || user?.name}
                         referrerPolicy="no-referrer"
                       />
                       <Avatar.Fallback>
-                        {user?.name?.charAt(0)}
+                        {profile?.name.charAt(0) || user?.name?.charAt(0)}
                       </Avatar.Fallback>
                     </Avatar>
                   </Dropdown.Trigger>
@@ -112,9 +140,9 @@ export default function Navbar() {
 
                     {/* USER INFO */}
                     <div className="px-3 pt-3 pb-2 border-b">
-                      <p className="text-sm font-medium">{user?.name}</p>
+                      <p className="text-sm font-medium">{profile?.name || user?.name}</p>
                       <p className="text-xs text-gray-500 truncate">
-                        {user?.email}
+                        {profile?.email || user?.email}
                       </p>
                     </div>
 

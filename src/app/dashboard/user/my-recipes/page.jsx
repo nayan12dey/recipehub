@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import RecipeCard from "@/components/RecipeCard";
 import { FaBookOpen } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -15,19 +15,30 @@ export default function MyRecipes() {
 
 
     useEffect(() => {
-        if (!session?.user?.email) return;
+        const fetchRecipes = async () => {
+            if (!session?.user?.email) return;
 
-        setLoading(true);
+            setLoading(true);
 
-        fetch(`http://localhost:5000/my-recipes/${session.user.email}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setRecipes(Array.isArray(data) ? data : []);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
+            const { data: token } = await authClient.token();
+
+            const res = await fetch(
+                `http://localhost:5000/my-recipes/${session.user.email}`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token?.token}`,
+                    },
+                }
+            );
+
+            const data = await res.json();
+
+            setRecipes(Array.isArray(data) ? data : []);
+            setLoading(false);
+        };
+
+        fetchRecipes();
     }, [session]);
-
 
     const handleRecipeUpdate = (updatedRecipe) => {
         setRecipes((prev) =>
