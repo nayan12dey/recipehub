@@ -3,16 +3,28 @@
 import { useEffect, useState } from "react";
 import { FaCreditCard, FaCheckCircle, FaTimesCircle, FaReceipt, FaCalendarAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Loader from "@/components/Loader";
 
 export default function TransactionsPage() {
     const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch("http://localhost:5000/payments")
             .then((res) => res.json())
-            .then((data) => setTransactions(data))
-            .catch((err) => console.error(err));
+            .then((data) => {
+                setTransactions(data)
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error(err)
+                setLoading(false);
+            });
     }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div className="relative min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 py-12 px-4 overflow-hidden">

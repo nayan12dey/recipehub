@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaUtensils } from "react-icons/fa";
 import FeaturedRecipeCard from "./FeaturedRecipeCard";
+import Loader from "./Loader";
 
 export default function FeaturedRecipes() {
     const [recipes, setRecipes] = useState([]);
@@ -21,6 +22,8 @@ export default function FeaturedRecipes() {
                 setLoading(false);
             });
     }, []);
+
+    
 
     return (
         <section className="relative overflow-hidden py-24 bg-gradient-to-b from-orange-50 via-white to-orange-50">
