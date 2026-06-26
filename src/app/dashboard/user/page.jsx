@@ -1,5 +1,6 @@
 "use client";
 
+import Loader from "@/components/Loader";
 import { useSession } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import { FaUtensils, FaHeart, FaThumbsUp, FaChartLine } from "react-icons/fa";
@@ -68,6 +69,10 @@ export default function DashboardOverview() {
     ];
 
     const firstName = session?.user?.name?.split(" ")[0] || "Chef";
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div className="min-h-full">
@@ -182,3 +187,4 @@ export default function DashboardOverview() {
         </div>
     );
 }
+
