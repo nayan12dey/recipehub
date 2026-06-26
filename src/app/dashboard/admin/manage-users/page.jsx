@@ -1,5 +1,6 @@
 "use client";
 
+import Loader from "@/components/Loader";
 import { useEffect, useState } from "react";
 import {
     FaUserCheck,
@@ -9,12 +10,22 @@ import {
 
 export default function ManageUsers() {
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
+
         fetch("http://localhost:5000/users")
             .then((res) => res.json())
-            .then((data) => setUsers(data))
-            .catch((err) => console.error(err));
+            .then((data) => {
+                setUsers(data)
+                setLoading(false);
+
+            })
+            .catch((err) => {
+                console.error(err)
+                setLoading(false);
+            });
     }, []);
 
     const handleBlock = async (id) => {
@@ -72,6 +83,10 @@ export default function ManageUsers() {
             console.log(error);
         }
     };
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div className="max-w-6xl mx-auto my-8 p-1">
