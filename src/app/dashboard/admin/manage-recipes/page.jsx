@@ -3,14 +3,23 @@
 import { useEffect, useState } from "react";
 import AdminRecipeTable from "@/components/AdminRecipeTable";
 import toast from "react-hot-toast";
+import Loader from "@/components/Loader";
 
 export default function ManageRecipes() {
     const [recipes, setRecipes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
         fetch("http://localhost:5000/recipes")
             .then(res => res.json())
-            .then(data => setRecipes(data));
+            .then(data => {
+                setRecipes(data)
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+            });
     }, []);
 
     const handleDelete = async (id) => {
@@ -69,6 +78,10 @@ export default function ManageRecipes() {
             toast.success("Recipe Featured Successfully");
         }
     };
+
+    if (loading) {
+        return <Loader />;
+    }
 
 
 
