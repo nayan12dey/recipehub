@@ -37,28 +37,28 @@ export default function FavoriteRecipes() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-    const fetchFavorites = async () => {
-        if (!session?.user?.email) return;
+        const fetchFavorites = async () => {
+            if (!session?.user?.email) return;
 
-        const { data: token } = await authClient.token();
+            const { data: token } = await authClient.token();
 
-        const res = await fetch(
-            `http://localhost:5000/favorites/${session.user.email}`,
-            {
-                headers: {
-                    authorization: `Bearer ${token?.token}`,
-                },
-            }
-        );
+            const res = await fetch(
+                `http://localhost:5000/favorites/${session.user.email}`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token?.token}`,
+                    },
+                }
+            );
 
-        const result = await res.json();
+            const result = await res.json();
 
-        setFavorites(result);
-        setLoading(false);
-    };
+            setFavorites(result);
+            setLoading(false);
+        };
 
-    fetchFavorites();
-}, [session]);
+        fetchFavorites();
+    }, [session]);
 
     const handleRemoveFavorite = async (id) => {
 
@@ -99,18 +99,121 @@ export default function FavoriteRecipes() {
     }
 
     return (
+        // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+
+        //     {favorites.map((recipe) => (
+
+        //         <div
+        //             key={recipe._id}
+        //             className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
+        //         >
+
+        //             {/* Image */}
+        //             <div className="relative h-44 overflow-hidden bg-orange-50">
+
+        //                 {recipe.recipeImage ? (
+        //                     <img
+        //                         src={recipe.recipeImage}
+        //                         alt={recipe.recipeName}
+        //                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        //                     />
+        //                 ) : (
+        //                     <div className="w-full h-full flex items-center justify-center">
+        //                         <MdOutlineRestaurantMenu
+        //                             size={52}
+        //                             className="text-orange-200"
+        //                         />
+        //                     </div>
+        //                 )}
+
+        //                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+
+        //                 <span
+        //                     className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-full ${categoryStyles[recipe.category] ??
+        //                         "bg-gray-100 text-gray-600"
+        //                         }`}
+        //                 >
+        //                     {recipe.category}
+        //                 </span>
+        //             </div>
+
+        //             {/* Body */}
+        //             <div className="flex flex-col flex-1 p-4 gap-3">
+
+        //                 <h3 className="text-gray-800 font-bold text-base">
+        //                     {recipe.recipeName}
+        //                 </h3>
+
+        //                 <div className="flex flex-wrap gap-2 text-[11px] text-gray-500">
+
+        //                     {recipe.cuisineType && (
+        //                         <span className="flex items-center gap-1">
+        //                             <FaGlobe
+        //                                 size={10}
+        //                                 className="text-orange-400"
+        //                             />
+        //                             {recipe.cuisineType}
+        //                         </span>
+        //                     )}
+
+        //                     {recipe.preparationTime && (
+        //                         <span className="flex items-center gap-1">
+        //                             <FaClock
+        //                                 size={10}
+        //                                 className="text-orange-400"
+        //                             />
+        //                             {recipe.preparationTime}
+        //                         </span>
+        //                     )}
+
+        //                     {recipe.difficultyLevel && (
+        //                         <span
+        //                             className={`px-2 py-0.5 rounded-full border text-[10px] font-bold ${difficultyStyles[recipe.difficultyLevel]}`}
+        //                         >
+        //                             {recipe.difficultyLevel}
+        //                         </span>
+        //                     )}
+        //                 </div>
+
+        //                 <div className="flex-1" />
+
+        //                 <div className="flex gap-2 pt-2 border-t border-gray-100">
+
+        //                     <Link
+        //                         href={`/recipes/${recipe.recipeId}`}
+        //                         className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-orange-200 text-orange-600 text-xs font-semibold hover:bg-orange-50"
+        //                     >
+        //                         <FaEye size={11} />
+        //                         View
+        //                     </Link>
+
+        //                     <button
+        //                         onClick={() =>
+        //                             handleRemoveFavorite(recipe._id)
+        //                         }
+        //                         className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-red-200 text-red-500 text-xs font-semibold hover:bg-red-50"
+        //                     >
+        //                         <FaTrash size={10} />
+        //                         Delete
+        //                     </button>
+
+        //                 </div>
+
+        //             </div>
+
+        //         </div>
+        //     ))}
+        // </div>
+
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-
             {favorites.map((recipe) => (
-
                 <div
                     key={recipe._id}
-                    className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
+                    className="group relative bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800/80 shadow-sm hover:shadow-lg dark:hover:shadow-black/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
                 >
-
                     {/* Image */}
-                    <div className="relative h-44 overflow-hidden bg-orange-50">
-
+                    <div className="relative h-44 overflow-hidden bg-orange-50 dark:bg-gray-950">
                         {recipe.recipeImage ? (
                             <img
                                 src={recipe.recipeImage}
@@ -121,16 +224,15 @@ export default function FavoriteRecipes() {
                             <div className="w-full h-full flex items-center justify-center">
                                 <MdOutlineRestaurantMenu
                                     size={52}
-                                    className="text-orange-200"
+                                    className="text-orange-200 dark:text-gray-800"
                                 />
                             </div>
                         )}
 
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
 
                         <span
-                            className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-full ${categoryStyles[recipe.category] ??
-                                "bg-gray-100 text-gray-600"
+                            className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-full shadow-sm ${categoryStyles[recipe.category] ?? "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
                                 }`}
                         >
                             {recipe.category}
@@ -139,18 +241,16 @@ export default function FavoriteRecipes() {
 
                     {/* Body */}
                     <div className="flex flex-col flex-1 p-4 gap-3">
-
-                        <h3 className="text-gray-800 font-bold text-base">
+                        <h3 className="text-gray-800 dark:text-white font-bold text-base line-clamp-1">
                             {recipe.recipeName}
                         </h3>
 
-                        <div className="flex flex-wrap gap-2 text-[11px] text-gray-500">
-
+                        <div className="flex flex-wrap gap-2 text-[11px] text-gray-500 dark:text-gray-400">
                             {recipe.cuisineType && (
                                 <span className="flex items-center gap-1">
                                     <FaGlobe
                                         size={10}
-                                        className="text-orange-400"
+                                        className="text-orange-500 dark:text-orange-400"
                                     />
                                     {recipe.cuisineType}
                                 </span>
@@ -160,7 +260,7 @@ export default function FavoriteRecipes() {
                                 <span className="flex items-center gap-1">
                                     <FaClock
                                         size={10}
-                                        className="text-orange-400"
+                                        className="text-orange-500 dark:text-orange-400"
                                     />
                                     {recipe.preparationTime}
                                 </span>
@@ -168,7 +268,8 @@ export default function FavoriteRecipes() {
 
                             {recipe.difficultyLevel && (
                                 <span
-                                    className={`px-2 py-0.5 rounded-full border text-[10px] font-bold ${difficultyStyles[recipe.difficultyLevel]}`}
+                                    className={`px-2 py-0.5 rounded-full border text-[10px] font-bold ${difficultyStyles[recipe.difficultyLevel] ?? "border-gray-200 text-gray-600 dark:border-gray-700 dark:text-gray-300"
+                                        }`}
                                 >
                                     {recipe.difficultyLevel}
                                 </span>
@@ -177,30 +278,25 @@ export default function FavoriteRecipes() {
 
                         <div className="flex-1" />
 
-                        <div className="flex gap-2 pt-2 border-t border-gray-100">
-
+                        {/* Footer Action Buttons */}
+                        <div className="flex gap-2 pt-3 border-t border-gray-100 dark:border-gray-800/80">
                             <Link
                                 href={`/recipes/${recipe.recipeId}`}
-                                className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-orange-200 text-orange-600 text-xs font-semibold hover:bg-orange-50"
+                                className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-orange-200 dark:border-orange-900/50 bg-transparent dark:bg-orange-950/20 text-orange-600 dark:text-orange-400 text-xs font-semibold hover:bg-orange-50 dark:hover:bg-orange-950/40 active:scale-95 transition-all duration-200"
                             >
                                 <FaEye size={11} />
                                 View
                             </Link>
 
                             <button
-                                onClick={() =>
-                                    handleRemoveFavorite(recipe._id)
-                                }
-                                className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-red-200 text-red-500 text-xs font-semibold hover:bg-red-50"
+                                onClick={() => handleRemoveFavorite(recipe._id)}
+                                className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-red-200 dark:border-red-950/50 bg-transparent dark:bg-red-950/10 text-red-500 dark:text-red-400 text-xs font-semibold hover:bg-red-50 dark:hover:bg-red-950/30 active:scale-95 transition-all duration-200"
                             >
                                 <FaTrash size={10} />
                                 Delete
                             </button>
-
                         </div>
-
                     </div>
-
                 </div>
             ))}
         </div>
