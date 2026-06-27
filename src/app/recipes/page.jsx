@@ -6,25 +6,29 @@ import Image from "next/image";
 import { Clock, Utensils, ChevronRight } from "lucide-react";
 import Loader from "@/components/Loader";
 import { useTheme } from "next-themes";
+import { Button } from "@heroui/react";
 
 export default function BrowseRecipes() {
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("");
+    const { theme, setTheme } = useTheme();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
         setLoading(true);
 
-        fetch(`http://localhost:5000/recipes?category=${selectedCategory}`)
+        fetch(
+            `http://localhost:5000/recipes?category=${selectedCategory}&page=${currentPage}&limit=6`
+        )
             .then((res) => res.json())
             .then((data) => {
-                setRecipes(data)
-                setLoading(false);
-            })
-            .catch(() => {
+                setRecipes(data.recipes);
+                setTotalPages(data.totalPages);
                 setLoading(false);
             });
-    }, [selectedCategory]);
+    }, [selectedCategory, currentPage]);
 
     if (loading) {
         return <Loader />;
@@ -48,7 +52,11 @@ export default function BrowseRecipes() {
                 <select
                     id="category"
                     value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
+
+                    onChange={(e) => {
+                        setSelectedCategory(e.target.value)
+                        setCurrentPage(1);
+                    }}
                     className="w-full p-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-sm text-gray-800 dark:text-white font-medium outline-none focus:border-orange-500 dark:focus:border-orange-500 focus:ring-1 focus:ring-orange-500 cursor-pointer transition-colors duration-200"
                 >
                     <option value="All" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">All Categories</option>
@@ -119,6 +127,47 @@ export default function BrowseRecipes() {
                     </div>
                 ))}
             </div>
+
+            <div className="flex justify-center gap-2 mt-10">
+                <Button
+                    disabled={currentPage === 1}
+                    onClick={() =>
+                        setCurrentPage(currentPage - 1)
+                    }
+                    className="px-6 py-6 border rounded bg-orange-400"
+                    
+                >
+                    Previous
+                </Button>
+
+                {[...Array(totalPages)].map((_, index) => (
+                    <Button
+                        key={index}
+                        onClick={() =>
+                            setCurrentPage(index + 1)
+                        }
+                        className={`px-6 py-6 rounded ${currentPage === index + 1
+                                ? "bg-orange-500 text-white"
+                                : "bg-white text-black border"
+                            }`}
+                    >
+                        {index + 1}
+                    </Button>
+                ))}
+
+                <Button
+                    disabled={currentPage === totalPages}
+                    onClick={() =>
+                        setCurrentPage(currentPage + 1)
+                    }
+                    className="px-6 py-6 border rounded bg-orange-400"
+                    
+                >
+                    Next
+                </Button>
+            </div>
+
+
         </div>
     );
 }
