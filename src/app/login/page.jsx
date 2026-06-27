@@ -192,7 +192,7 @@ export default function LoginPage() {
 
                         <TextField isRequired name="email" type="email">
                             <Label className="text-gray-700 dark:text-gray-300">Email</Label>
-                            <Input placeholder="john@example.com" className="text-gray-900 dark:text-gray-100" />
+                            <Input placeholder="john@example.com" />
                             <FieldError className="text-red-500 dark:text-red-400" />
                         </TextField>
 
@@ -204,7 +204,7 @@ export default function LoginPage() {
                                     name="password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Enter your password"
-                                    className="w-full pr-10 text-gray-900 dark:text-gray-100"
+                                    className="w-full pr-10"
                                 />
 
                                 <button

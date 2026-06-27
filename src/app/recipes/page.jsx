@@ -59,7 +59,7 @@ export default function BrowseRecipes() {
                     }}
                     className="w-full p-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-sm text-gray-800 dark:text-white font-medium outline-none focus:border-orange-500 dark:focus:border-orange-500 focus:ring-1 focus:ring-orange-500 cursor-pointer transition-colors duration-200"
                 >
-                    <option value="All" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">All Categories</option>
+                    <option value="" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">All Categories</option>
                     <option value="Main Course" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Main Course</option>
                     <option value="Fast Food" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Fast Food</option>
                     <option value="Snack" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Snack</option>

@@ -11,6 +11,7 @@ import { CgProfile } from "react-icons/cg";
 import { BiLogOut } from "react-icons/bi";
 import { Avatar, Dropdown } from "@heroui/react";
 import ThemeToggle from "./ThemeToggle";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,9 @@ export default function Navbar() {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
- 
+
+  const router = useRouter()
+
 
   const [profile, setProfile] = useState(null);
   //  console.log(profile)
@@ -51,10 +54,23 @@ export default function Navbar() {
 
 
 
+  // const handleSignOut = async () => {
+  //   await authClient.signOut();
+  //   setIsOpen(false);
+  // };
+
   const handleSignOut = async () => {
-    await authClient.signOut();
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login");
+        },
+      },
+    });
     setIsOpen(false);
   };
+
+
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm transition-colors duration-300">
@@ -101,7 +117,7 @@ export default function Navbar() {
 
           {/* RIGHT SIDE */}
           <div className="flex justify-end items-center gap-2">
-            
+
             <ThemeToggle />
 
             {/* DESKTOP AUTH */}

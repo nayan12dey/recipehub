@@ -24,7 +24,7 @@ const categoryStyles = {
 
 export default function RecipeCard({ recipe, onDelete, onUpdate }) {
     return (
-        <div className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
+        <div className="group relative bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
 
             {/* Image */}
             <div className="relative h-44 overflow-hidden bg-orange-50 flex-shrink-0">
@@ -50,7 +50,7 @@ export default function RecipeCard({ recipe, onDelete, onUpdate }) {
             {/* Body */}
             <div className="flex flex-col flex-1 p-4 gap-3">
 
-                <h3 className="text-gray-800 font-bold text-base line-clamp-1">
+                <h3 className="light:text-gray-800 dark:text-white font-bold text-base line-clamp-1">
                     {recipe.recipeName}
                 </h3>
 

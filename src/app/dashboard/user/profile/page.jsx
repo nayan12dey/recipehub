@@ -322,7 +322,7 @@ export default function ProfilePage() {
                                 <p className="text-xs uppercase tracking-wider text-orange-600 dark:text-orange-400 font-bold">
                                     Membership Status
                                 </p>
-                                <h2 className="text-2xl font-black text-blue-800 dark:text-gray-100 mt-0.5 flex items-center gap-2">
+                                <h2 className="text-2xl font-black text-black dark:text-yellow-400 mt-0.5 flex items-center gap-2">
                                     Premium Active
                                 </h2>
                             </div>
