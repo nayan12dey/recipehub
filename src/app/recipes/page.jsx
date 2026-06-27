@@ -5,15 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { Clock, Utensils, ChevronRight } from "lucide-react";
 import Loader from "@/components/Loader";
+import { useTheme } from "next-themes";
 
 export default function BrowseRecipes() {
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedCategory, setSelectedCategory] = useState("");
 
     useEffect(() => {
         setLoading(true);
 
-        fetch("http://localhost:5000/recipes")
+        fetch(`http://localhost:5000/recipes?category=${selectedCategory}`)
             .then((res) => res.json())
             .then((data) => {
                 setRecipes(data)
@@ -22,11 +24,11 @@ export default function BrowseRecipes() {
             .catch(() => {
                 setLoading(false);
             });
-    }, []);
+    }, [selectedCategory]);
 
     if (loading) {
-    return <Loader />;
-}
+        return <Loader />;
+    }
 
     return (
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -37,6 +39,27 @@ export default function BrowseRecipes() {
                 <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
                     Discover a world of culinary delights, from quick weeknight dinners to gourmet weekend feasts.
                 </p>
+            </div>
+
+            <div className="mb-10 w-full">
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Filter by Category
+                </label>
+                <select
+                    id="category"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full p-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-sm text-gray-800 dark:text-white font-medium outline-none focus:border-orange-500 dark:focus:border-orange-500 focus:ring-1 focus:ring-orange-500 cursor-pointer transition-colors duration-200"
+                >
+                    <option value="All" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">All Categories</option>
+                    <option value="Main Course" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Main Course</option>
+                    <option value="Fast Food" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Fast Food</option>
+                    <option value="Snack" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Snack</option>
+                    <option value="Healthy" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Healthy</option>
+                    <option value="Street Food" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Street Food</option>
+                    <option value="Beverage" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Beverage</option>
+                    <option value="Dessert" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white">Dessert</option>
+                </select>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-12">
