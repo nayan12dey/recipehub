@@ -78,14 +78,93 @@ export default function PurchasedRecipes() {
 
     return (
 
+        // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        //     {recipes.map(recipe => (
+        //         <div
+        //             key={recipe._id}
+        //             className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
+        //         >
+        //             {/* Image Section */}
+        //             <div className="relative h-44 overflow-hidden bg-orange-50 flex-shrink-0">
+        //                 {recipe.recipeImage ? (
+        //                     <img
+        //                         src={recipe.recipeImage}
+        //                         alt={recipe.recipeName}
+        //                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        //                     />
+        //                 ) : (
+        //                     <div className="w-full h-full flex items-center justify-center">
+        //                         <MdOutlineRestaurantMenu size={52} className="text-orange-200" />
+        //                     </div>
+        //                 )}
+
+        //                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+
+        //                 {/* Category Tag */}
+        //                 <span className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-full ${categoryStyles[recipe.category] ?? "bg-gray-100 text-gray-600"}`}>
+        //                     {recipe.category}
+        //                 </span>
+
+        //                 {/* Paid Tag */}
+        //                 <span className="absolute top-3 right-3 bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
+        //                     Paid: ${recipe.amount}
+        //                 </span>
+        //             </div>
+
+        //             {/* Body Section */}
+        //             <div className="flex flex-col flex-1 p-4 gap-3">
+        //                 <h3 className="text-gray-800 font-bold text-base line-clamp-1">
+        //                     {recipe.recipeName}
+        //                 </h3>
+
+        //                 {/* Meta Info */}
+        //                 <div className="flex flex-wrap gap-2 text-[11px] text-gray-500 font-medium">
+        //                     {recipe.cuisineType && (
+        //                         <span className="flex items-center gap-1">
+        //                             <FaGlobe size={10} className="text-orange-400" />
+        //                             {recipe.cuisineType}
+        //                         </span>
+        //                     )}
+
+        //                     {recipe.preparationTime && (
+        //                         <span className="flex items-center gap-1">
+        //                             <FaClock size={10} className="text-orange-400" />
+        //                             {recipe.preparationTime}
+        //                         </span>
+        //                     )}
+
+        //                     {recipe.difficultyLevel && (
+        //                         <span className={`px-2 py-0.5 rounded-full border text-[10px] font-bold ${difficultyStyles[recipe.difficultyLevel]}`}>
+        //                             {recipe.difficultyLevel}
+        //                         </span>
+        //                     )}
+        //                 </div>
+
+        //                 <div className="flex-1" />
+
+        //                 {/* Actions */}
+        //                 <div className="pt-2 border-t border-gray-100">
+        //                     <Link
+        //                         href={`/recipes/${recipe.recipeId}`}
+        //                         className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-orange-200 text-orange-600 text-xs font-semibold hover:bg-orange-50 transition-colors duration-200"
+        //                     >
+        //                         <FaEye size={11} />
+        //                         View Details
+        //                     </Link>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     ))}
+        // </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {recipes.map(recipe => (
                 <div
                     key={recipe._id}
-                    className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
+                    className="group relative bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg dark:hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
                 >
                     {/* Image Section */}
-                    <div className="relative h-44 overflow-hidden bg-orange-50 flex-shrink-0">
+                    <div className="relative h-44 overflow-hidden bg-orange-50 dark:bg-zinc-800 flex-shrink-0">
                         {recipe.recipeImage ? (
                             <img
                                 src={recipe.recipeImage}
@@ -94,47 +173,47 @@ export default function PurchasedRecipes() {
                             />
                         ) : (
                             <div className="w-full h-full flex items-center justify-center">
-                                <MdOutlineRestaurantMenu size={52} className="text-orange-200" />
+                                <MdOutlineRestaurantMenu size={52} className="text-orange-200 dark:text-zinc-600" />
                             </div>
                         )}
 
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
                         {/* Category Tag */}
-                        <span className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-full ${categoryStyles[recipe.category] ?? "bg-gray-100 text-gray-600"}`}>
+                        <span className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-full ${categoryStyles[recipe.category] ?? "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"}`}>
                             {recipe.category}
                         </span>
 
                         {/* Paid Tag */}
-                        <span className="absolute top-3 right-3 bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
+                        <span className="absolute top-3 right-3 bg-emerald-600 dark:bg-emerald-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
                             Paid: ${recipe.amount}
                         </span>
                     </div>
 
                     {/* Body Section */}
                     <div className="flex flex-col flex-1 p-4 gap-3">
-                        <h3 className="text-gray-800 font-bold text-base line-clamp-1">
+                        <h3 className="text-black dark:text-white font-bold text-base line-clamp-1">
                             {recipe.recipeName}
                         </h3>
 
                         {/* Meta Info */}
-                        <div className="flex flex-wrap gap-2 text-[11px] text-gray-500 font-medium">
+                        <div className="flex flex-wrap gap-2 text-[11px] text-gray-500 dark:text-gray-400 font-medium">
                             {recipe.cuisineType && (
                                 <span className="flex items-center gap-1">
-                                    <FaGlobe size={10} className="text-orange-400" />
+                                    <FaGlobe size={10} className="text-orange-400 dark:text-orange-500" />
                                     {recipe.cuisineType}
                                 </span>
                             )}
 
                             {recipe.preparationTime && (
                                 <span className="flex items-center gap-1">
-                                    <FaClock size={10} className="text-orange-400" />
+                                    <FaClock size={10} className="text-orange-400 dark:text-orange-500" />
                                     {recipe.preparationTime}
                                 </span>
                             )}
 
                             {recipe.difficultyLevel && (
-                                <span className={`px-2 py-0.5 rounded-full border text-[10px] font-bold ${difficultyStyles[recipe.difficultyLevel]}`}>
+                                <span className={`px-2 py-0.5 rounded-full border text-[10px] font-bold ${difficultyStyles[recipe.difficultyLevel] ?? "border-gray-200 text-gray-600 dark:border-gray-700 dark:text-gray-300"}`}>
                                     {recipe.difficultyLevel}
                                 </span>
                             )}
@@ -143,10 +222,10 @@ export default function PurchasedRecipes() {
                         <div className="flex-1" />
 
                         {/* Actions */}
-                        <div className="pt-2 border-t border-gray-100">
+                        <div className="pt-2 border-t border-gray-100 dark:border-gray-800">
                             <Link
                                 href={`/recipes/${recipe.recipeId}`}
-                                className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-orange-200 text-orange-600 text-xs font-semibold hover:bg-orange-50 transition-colors duration-200"
+                                className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-orange-200 dark:border-orange-900/50 text-orange-600 dark:text-orange-400 text-xs font-semibold hover:bg-orange-50 dark:hover:bg-orange-950/30 transition-colors duration-200"
                             >
                                 <FaEye size={11} />
                                 View Details

@@ -116,7 +116,7 @@ export default function AddRecipePage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50/60 py-8 px-4 sm:px-6">
+        <div className="min-h-screen bg-gray-50/60 dark:bg-gray-900 py-8 px-4 sm:px-6">
 
             {/* Page header */}
             <div className="max-w-3xl mx-auto mb-8">
@@ -125,7 +125,7 @@ export default function AddRecipePage() {
                         <FaPlus className="text-white" size={16} />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-extrabold text-gray-800 leading-tight">
+                        <h1 className="text-2xl font-extrabold text-gray-800 dark:text-white leading-tight">
                             Add New Recipe
                         </h1>
                         <p className="text-sm text-gray-500 mt-0.5">
@@ -142,7 +142,7 @@ export default function AddRecipePage() {
             <div className="max-w-3xl mx-auto">
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white/80 backdrop-blur-xl border border-gray-100 rounded-3xl shadow-sm shadow-gray-200 overflow-hidden"
+                    className="bg-white/80 dark:bg-gray-800 backdrop-blur-xl border border-gray-100 rounded-3xl shadow-sm shadow-gray-200 overflow-hidden"
                 >
 
                     {/* ── Section 1 : Basic Info ── */}
@@ -342,6 +342,10 @@ export default function AddRecipePage() {
                 </form>
             </div>
         </div>
+
+        
+
+        
     );
 }
 
