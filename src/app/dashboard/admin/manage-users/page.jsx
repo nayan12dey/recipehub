@@ -113,11 +113,11 @@ export default function ManageUsers() {
 
     return (
         <div className="max-w-6xl mx-auto my-8 p-1">
-            <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-700 overflow-hidden">
 
-                <div className="px-8 py-6 bg-gradient-to-r from-orange-50/50 to-transparent border-b border-gray-100 flex items-center justify-between">
+                <div className="px-8 py-6 bg-gradient-to-r from-orange-50/50 to-transparent dark:from-gray-800 dark:to-gray-900 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
                     <div>
-                        <h2 className="text-2xl font-bold text-gray-800 tracking-tight">
+                        <h2 className="text-2xl font-bold text-gray-800 dark:text-white tracking-tight">
                             Manage Users
                         </h2>
 
@@ -132,10 +132,10 @@ export default function ManageUsers() {
                 </div>
 
                 <div className="overflow-x-auto">
-                    <table className="w-full table-fixed text-left border-collapse">
+                    <table className="w-full table-fixed text-left border-collapse text-gray-800 dark:text-gray-200">
 
                         <thead>
-                            <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider font-semibold border-b border-gray-100">
+                            <tr className="bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-300 text-xs uppercase tracking-wider font-semibold border-b border-gray-100 dark:border-gray-700">
                                 <th className="w-[40%] py-4 px-8">
                                     User Details
                                 </th>
@@ -158,7 +158,7 @@ export default function ManageUsers() {
                             </tr>
                         </thead>
 
-                        <tbody className="divide-y divide-gray-100 text-sm">
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-sm">
                             {users.map((user) => {
                                 const isBlocked =
                                     user.status === "blocked";
@@ -172,15 +172,15 @@ export default function ManageUsers() {
                                 return (
                                     <tr
                                         key={user._id}
-                                        className="hover:bg-orange-50/20 transition"
+                                        className="hover:bg-orange-50/20 dark:hover:bg-gray-800 transition"
                                     >
                                         <td className="py-4 px-8">
                                             <div className="flex flex-col">
-                                                <span className="font-semibold text-gray-800">
+                                                <span className="font-semibold text-gray-800 dark:text-white">
                                                     {user.name}
                                                 </span>
 
-                                                <span className="text-xs text-gray-400">
+                                                <span className="text-xs text-gray-400 dark:text-gray-500">
                                                     {user.email}
                                                 </span>
                                             </div>
