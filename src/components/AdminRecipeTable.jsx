@@ -15,7 +15,7 @@ export default function AdminRecipeTable({
 
     
     return (
-        <div className="overflow-x-auto bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-orange-100/50 p-1">
+        <div className="overflow-x-auto bg-white/70 dark:bg-gray-900 backdrop-blur-xl rounded-3xl shadow-xl border border-orange-100/50 p-1">
             <table className="w-full text-left border-collapse min-w-[800px]">
                 <thead>
                     <tr className="bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl">
@@ -32,11 +32,11 @@ export default function AdminRecipeTable({
                     {recipesData.map((recipe, index) => (
                         <tr
                             key={recipe._id}
-                            className="hover:bg-orange-50/40 transition-all duration-300 group"
+                            className="hover:bg-orange-50/40 dark:hover:bg-orange-200 transition-all duration-300 group"
                         >
                             <td className="p-4 text-gray-500 font-mono text-sm">{index + 1}</td>
 
-                            <td className="p-4 text-gray-900 font-medium group-hover:text-orange-600 transition-colors">
+                            <td className="p-4 text-gray-900 font-medium group-hover:text-orange-600 transition-colors dark:text-orange-500">
                                 {recipe?.recipeName}
                             </td>
 

@@ -122,7 +122,7 @@ export default function AdminDashboard() {
                     <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-sm shadow-indigo-200">
                         <FaChartLine size={14} className="text-white" />
                     </div>
-                    <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
+                    <h1 className="text-2xl font-bold text-gray-800 dark:text-white tracking-tight">
                         Admin Overview
                     </h1>
                 </div>
@@ -153,7 +153,7 @@ export default function AdminDashboard() {
                         <div
                             id={id}
                             key={id}
-                            className={`relative rounded-2xl border ${borderColor} ${bgLight} p-6 shadow-md ${shadowColor} overflow-hidden group transition-transform duration-200 hover:-translate-y-1`}
+                            className={`relative rounded-2xl border ${borderColor} ${bgLight} p-6 shadow-md ${shadowColor} overflow-hidden group transition-transform duration-200 hover:-translate-y-1 dark:text-black`}
                         >
                             {/* Decorative circles */}
                             <div
