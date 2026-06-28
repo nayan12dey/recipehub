@@ -122,59 +122,142 @@ export default function ReportsPage() {
     }
 
     return (
-        <main className="relative min-h-screen overflow-hidden py-12 bg-gradient-to-b from-gray-50 via-white to-gray-50">
+        // <main className="relative min-h-screen overflow-hidden py-12 bg-gradient-to-b from-gray-50 via-white to-gray-50">
 
-            <div className="absolute top-[-100px] right-[-100px] w-96 h-96 rounded-full bg-red-100/40 blur-3xl pointer-events-none" />
-            <div className="absolute bottom-[-100px] left-[-100px] w-80 h-80 rounded-full bg-orange-100/30 blur-3xl pointer-events-none" />
+        //     <div className="absolute top-[-100px] right-[-100px] w-96 h-96 rounded-full bg-red-100/40 blur-3xl pointer-events-none" />
+        //     <div className="absolute bottom-[-100px] left-[-100px] w-80 h-80 rounded-full bg-orange-100/30 blur-3xl pointer-events-none" />
+
+        //     <div className="relative z-10 max-w-7xl mx-auto px-6">
+
+        //         <motion.div
+        //             initial={{ opacity: 0, y: -15 }}
+        //             animate={{ opacity: 1, y: 0 }}
+        //             transition={{ duration: 0.4 }}
+        //             className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-gray-100 pb-8"
+        //         >
+        //             <div>
+        //                 <div className="flex items-center gap-2 text-red-600 font-semibold text-sm bg-red-50 px-3 py-1 rounded-full w-fit">
+        //                     <ShieldAlert className="w-4 h-4" />
+        //                     Admin Moderation
+        //                 </div>
+
+        //                 <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mt-3">
+        //                     Recipe Reports
+        //                 </h1>
+
+        //                 <p className="text-gray-500 text-sm mt-1">
+        //                     Review and manage user flags on submitted recipes.
+        //                 </p>
+        //             </div>
+
+        //             <div className="flex items-center gap-3 bg-white border border-gray-200/80 rounded-2xl p-4 shadow-sm backdrop-blur-md">
+        //                 <div className="p-3 bg-red-50 text-red-500 rounded-xl">
+        //                     <AlertCircle className="w-5 h-5" />
+        //                 </div>
+
+        //                 <div>
+        //                     <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+        //                         Total Flags
+        //                     </div>
+
+        //                     <div className="text-2xl font-bold text-gray-900">
+        //                         {loading ? "..." : reports.length}
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </motion.div>
+
+        //         <motion.div
+        //             initial={{ opacity: 0, y: 15 }}
+        //             animate={{ opacity: 1, y: 0 }}
+        //             transition={{ duration: 0.4, delay: 0.1 }}
+        //             className="mt-10 bg-white/80 backdrop-blur-md rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden"
+        //         >
+        //             {loading ? (
+        //                 <div className="py-20 text-center text-gray-500 font-medium">
+        //                     Fetching active reports...
+        //                 </div>
+        //             ) : reports.length > 0 ? (
+        //                 <ReportsTable
+        //                     reports={reports}
+        //                     handleDismiss={handleDismiss}
+        //                     handleRemoveRecipe={handleRemoveRecipe}
+        //                 />
+        //             ) : (
+        //                 <div className="py-16 text-center text-gray-500 font-medium bg-gray-50/30">
+        //                     No active reports found. All clear!
+        //                 </div>
+        //             )}
+        //         </motion.div>
+
+        //     </div>
+        // </main>
+
+
+        <main className="relative min-h-screen overflow-hidden py-12 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+
+            {/* Background Blur */}
+            <div className="absolute top-[-100px] right-[-100px] w-96 h-96 rounded-full bg-red-100/40 dark:bg-red-900/20 blur-3xl pointer-events-none" />
+            <div className="absolute bottom-[-100px] left-[-100px] w-80 h-80 rounded-full bg-orange-100/30 dark:bg-orange-900/20 blur-3xl pointer-events-none" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-6">
 
+                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4 }}
-                    className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-gray-100 pb-8"
+                    className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-gray-100 dark:border-gray-700 pb-8"
                 >
                     <div>
-                        <div className="flex items-center gap-2 text-red-600 font-semibold text-sm bg-red-50 px-3 py-1 rounded-full w-fit">
+
+                        <div className="flex items-center gap-2 text-red-600 dark:text-red-300 font-semibold text-sm bg-red-50 dark:bg-red-900/30 px-3 py-1 rounded-full w-fit">
                             <ShieldAlert className="w-4 h-4" />
                             Admin Moderation
                         </div>
 
-                        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mt-3">
+                        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mt-3">
                             Recipe Reports
                         </h1>
 
-                        <p className="text-gray-500 text-sm mt-1">
+                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
                             Review and manage user flags on submitted recipes.
                         </p>
+
                     </div>
 
-                    <div className="flex items-center gap-3 bg-white border border-gray-200/80 rounded-2xl p-4 shadow-sm backdrop-blur-md">
-                        <div className="p-3 bg-red-50 text-red-500 rounded-xl">
+                    {/* Stats Card */}
+                    <div className="flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-200/80 dark:border-gray-700 rounded-2xl p-4 shadow-sm dark:shadow-none backdrop-blur-md">
+
+                        <div className="p-3 bg-red-50 dark:bg-red-900/30 text-red-500 dark:text-red-300 rounded-xl">
                             <AlertCircle className="w-5 h-5" />
                         </div>
 
                         <div>
-                            <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+
+                            <div className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                                 Total Flags
                             </div>
 
-                            <div className="text-2xl font-bold text-gray-900">
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">
                                 {loading ? "..." : reports.length}
                             </div>
+
                         </div>
+
                     </div>
+
                 </motion.div>
 
+                {/* Reports Table */}
                 <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.1 }}
-                    className="mt-10 bg-white/80 backdrop-blur-md rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden"
+                    className="mt-10 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md rounded-2xl border border-gray-200/60 dark:border-gray-700 shadow-sm dark:shadow-none overflow-hidden"
                 >
                     {loading ? (
-                        <div className="py-20 text-center text-gray-500 font-medium">
+                        <div className="py-20 text-center text-gray-500 dark:text-gray-400 font-medium">
                             Fetching active reports...
                         </div>
                     ) : reports.length > 0 ? (
@@ -184,7 +267,7 @@ export default function ReportsPage() {
                             handleRemoveRecipe={handleRemoveRecipe}
                         />
                     ) : (
-                        <div className="py-16 text-center text-gray-500 font-medium bg-gray-50/30">
+                        <div className="py-16 text-center text-gray-500 dark:text-gray-400 font-medium bg-gray-50/30 dark:bg-gray-800/30">
                             No active reports found. All clear!
                         </div>
                     )}
