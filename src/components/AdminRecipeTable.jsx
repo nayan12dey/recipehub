@@ -10,6 +10,9 @@ export default function AdminRecipeTable({
     handleFeature,
 }) {
 
+    // console.log(recipes?.recipes)
+    const recipesData = recipes?.recipes
+
     
     return (
         <div className="overflow-x-auto bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-orange-100/50 p-1">
@@ -26,7 +29,7 @@ export default function AdminRecipeTable({
                 </thead>
 
                 <tbody className="divide-y divide-orange-50/60">
-                    {recipes.map((recipe, index) => (
+                    {recipesData.map((recipe, index) => (
                         <tr
                             key={recipe._id}
                             className="hover:bg-orange-50/40 transition-all duration-300 group"
