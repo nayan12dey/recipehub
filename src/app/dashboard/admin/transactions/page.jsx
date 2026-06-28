@@ -50,43 +50,65 @@ export default function TransactionsPage() {
     }
 
     return (
-        <div className="relative min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 py-12 px-4 overflow-hidden">
+        <div className="relative min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 py-12 px-4 overflow-hidden">
             {/* Ambient Lighting Glow (Signature Theme Component) */}
-            <div className="absolute top-12 -left-24 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-12 -right-24 w-96 h-96 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-12 -left-24 w-96 h-96 bg-orange-500/10 dark:bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-12 -right-24 w-96 h-96 bg-red-500/10 dark:bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-3xl shadow-xl border border-orange-100/40 overflow-hidden relative z-10"
+                className="max-w-6xl mx-auto bg-white/80 dark:bg-gray-900/90 backdrop-blur-md rounded-3xl shadow-xl dark:shadow-none border border-orange-100/40 dark:border-gray-700 overflow-hidden relative z-10"
             >
                 {/* Brand Header Header */}
-                <div className="px-8 py-6 bg-gradient-to-r from-orange-50/50 via-white/40 to-transparent border-b border-orange-100/30 flex items-center justify-between flex-wrap gap-4">
+                <div className="px-8 py-6 
+bg-white dark:bg-gray-900 
+border-b border-gray-100 dark:border-gray-700 
+flex items-center justify-between flex-wrap gap-4">
+
                     <div className="flex items-center gap-3.5">
-                        <div className="p-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl shadow-lg shadow-orange-500/20">
+
+                        {/* Icon */}
+                        <div className="p-3 
+        bg-orange-100 dark:bg-orange-500/10 
+        text-orange-600 dark:text-orange-300 
+        rounded-2xl">
                             <FaCreditCard className="text-xl" />
                         </div>
+
+                        {/* Text */}
                         <div>
-                            <h2 className="text-2xl font-black text-gray-800 tracking-tight font-sans">
+                            <h2 className="text-2xl font-bold 
+            text-gray-800 dark:text-white 
+            tracking-tight">
                                 Transactions
                             </h2>
-                            <p className="text-xs text-gray-400 font-mono mt-0.5">
+
+                            <p className="text-xs 
+            text-gray-500 dark:text-gray-400 
+            mt-0.5">
                                 Real-time ledger of incoming premium upgrades
                             </p>
                         </div>
+
                     </div>
 
-                    <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-black px-4 py-2 rounded-xl shadow-md shadow-orange-500/15 font-mono tracking-wide">
+                    {/* Badge */}
+                    <span className="bg-orange-500 
+    text-white text-xs font-semibold 
+    px-4 py-2 rounded-xl 
+    shadow-sm">
                         Processed: {transactions.length} Txns
                     </span>
+
                 </div>
 
                 {/* Glassmorphic Table Ledger */}
                 <div className="overflow-x-auto">
                     <table className="w-full table-fixed text-left border-collapse">
                         <thead>
-                            <tr className="bg-gray-50/60 text-gray-400 text-[11px] uppercase tracking-widest font-black font-mono border-b border-orange-100/20">
+                            <tr className="bg-gray-50/60 dark:bg-gray-800 text-gray-400 dark:text-gray-300 text-[11px] uppercase tracking-widest font-black font-mono border-b border-orange-100/20 dark:border-gray-700">
                                 <th className="w-[30%] py-4 px-8">User Account</th>
                                 <th className="w-[15%] py-4 px-6">Amount</th>
                                 <th className="w-[18%] py-4 px-6">Data</th>
@@ -95,25 +117,25 @@ export default function TransactionsPage() {
                             </tr>
                         </thead>
 
-                        <tbody className="divide-y divide-gray-100/50 text-sm">
+                        <tbody className="divide-y divide-gray-100/50 dark:divide-gray-700 text-sm">
                             {transactions.map((payment) => {
                                 const isPaid = payment.paymentStatus === "paid";
 
                                 return (
                                     <tr
                                         key={payment._id}
-                                        className="hover:bg-orange-50/30 transition-all duration-200 group"
+                                        className="hover:bg-orange-50/30 dark:hover:bg-gray-800 transition-all duration-200 group"
                                     >
                                         {/* User Column */}
                                         <td className="py-4 px-8">
-                                            <span className="font-bold text-gray-700 group-hover:text-orange-600 transition-colors duration-200 block truncate">
+                                            <span className="font-bold text-gray-700 dark:text-gray-200 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-200 block truncate">
                                                 {payment.userEmail}
                                             </span>
                                         </td>
 
                                         {/* Amount Column */}
                                         <td className="py-4 px-6">
-                                            <span className="text-base font-black text-gray-800 font-sans tracking-tight">
+                                            <span className="text-base font-black text-gray-800 dark:text-white font-sans tracking-tight">
                                                 ${payment.amount}
                                             </span>
                                         </td>
@@ -163,7 +185,7 @@ export default function TransactionsPage() {
 
                 {/* Empty State Structure */}
                 {transactions.length === 0 && (
-                    <div className="text-center py-16 text-gray-400 text-sm font-mono tracking-tight bg-white/50">
+                    <div className="text-center py-16 text-gray-400 dark:text-gray-500 text-sm font-mono tracking-tight bg-white/50 dark:bg-gray-900">
                         No transaction logs processed through the gateway pipeline.
                     </div>
                 )}
