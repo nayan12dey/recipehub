@@ -6,6 +6,8 @@ import RecipeCard from "@/components/RecipeCard";
 import { FaBookOpen } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
+import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 
 export default function MyRecipes() {
     const { data: session } = useSession();
@@ -59,6 +61,7 @@ export default function MyRecipes() {
 
         if (data.deletedCount > 0) {
             setRecipes((prev) => prev.filter((r) => r._id !== id));
+            toast.success("Recipe deleted successfully!");
         }
     };
 
