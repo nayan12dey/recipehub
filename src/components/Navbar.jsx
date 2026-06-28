@@ -150,7 +150,7 @@ export default function Navbar() {
                         referrerPolicy="no-referrer"
                       />
                       <Avatar.Fallback>
-                        {profile?.name.charAt(0) || user?.name?.charAt(0)}
+                        {profile?.name?.charAt(0) || user?.name?.charAt(0)}
                       </Avatar.Fallback>
                     </Avatar>
                   </Dropdown.Trigger>
