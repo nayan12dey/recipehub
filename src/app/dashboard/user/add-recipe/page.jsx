@@ -95,7 +95,7 @@ export default function AddRecipePage() {
         const { data: token } = await authClient.token()
         console.log(token.token)  
 
-        const res = await fetch("http://localhost:5000/recipes", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/recipes`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

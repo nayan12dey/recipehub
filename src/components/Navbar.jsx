@@ -37,7 +37,7 @@ export default function Navbar() {
       const { data: token } = await authClient.token();
 
       const res = await fetch(
-        `http://localhost:5000/user/${session.user.email}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/user/${session.user.email}`,
         {
           headers: {
             authorization: `Bearer ${token?.token}`,

@@ -25,7 +25,7 @@ export default function ProfilePage() {
                 await authClient.token();
 
             const res = await fetch(
-                `http://localhost:5000/user/${session.user.email}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/user/${session.user.email}`,
                 {
                     headers: {
                         authorization: `Bearer ${token?.token}`,
@@ -54,7 +54,7 @@ export default function ProfilePage() {
         const { data: token } = await authClient.token();
 
         const res = await fetch(
-            `http://localhost:5000/user/${session?.user?.email}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/user/${session?.user?.email}`,
             {
                 method: "PATCH",
                 headers: {

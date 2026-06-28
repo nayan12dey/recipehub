@@ -23,21 +23,21 @@ export default function PremiumSuccessPage() {
 
 
             const stripeRes = await fetch(
-                `http://localhost:5000/stripe-session/${sessionId}`
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/stripe-session/${sessionId}`
             );
 
             const stripeData =
                 await stripeRes.json();
 
             await fetch(
-                `http://localhost:5000/users/plan/${session.user.email}`,
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/users/plan/${session.user.email}`,
                 {
                     method: "PATCH",
                 }
             );
 
             await fetch(
-                "http://localhost:5000/payments",
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/payments`,
                 {
                     method: "POST",
                     headers: {

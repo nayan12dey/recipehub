@@ -11,7 +11,7 @@ export default function FeaturedRecipes() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:5000/featured-recipes")
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/featured-recipes`)
             .then((res) => res.json())
             .then((data) => {
                 setRecipes(data);

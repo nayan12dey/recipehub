@@ -11,7 +11,7 @@ export default function ManageRecipes() {
 
     useEffect(() => {
         setLoading(true);
-        fetch("http://localhost:5000/recipes")
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/recipes`)
             .then(res => res.json())
             .then(data => {
                 setRecipes(data)
@@ -24,7 +24,7 @@ export default function ManageRecipes() {
 
     const handleDelete = async (id) => {
         const res = await fetch(
-            `http://localhost:5000/recipes/${id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/${id}`,
             {
                 method: "DELETE",
             }
@@ -53,7 +53,7 @@ export default function ManageRecipes() {
         console.log(id);
 
         const res = await fetch(
-            `http://localhost:5000/recipes/feature/${id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/feature/${id}`,
             {
                 method: "PATCH",
             }

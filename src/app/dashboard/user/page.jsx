@@ -21,7 +21,7 @@ export default function DashboardOverview() {
                     await authClient.token();
 
                 const res = await fetch(
-                    `http://localhost:5000/dashboard/${session.user.email}`,
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/dashboard/${session.user.email}`,
                     {
                         headers: {
                             authorization: `Bearer ${token?.token}`,

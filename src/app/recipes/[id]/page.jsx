@@ -22,7 +22,7 @@ import ReportModal from "@/components/ReportModal";
 export default async function RecipeDetails({ params }) {
     const { id } = await params;
 
-    const res = await fetch(`http://localhost:5000/recipes/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/${id}`, {
         cache: "no-store",
     });
 

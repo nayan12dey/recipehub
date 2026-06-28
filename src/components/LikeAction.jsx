@@ -8,7 +8,7 @@ export default function LikeAction({ recipeId }) {
 
     const handleLike = async () => {
         const res = await fetch(
-            `http://localhost:5000/recipes/like/${recipeId}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/like/${recipeId}`,
             {
                 method: "PATCH",
             }

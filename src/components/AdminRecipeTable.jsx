@@ -9,6 +9,8 @@ export default function AdminRecipeTable({
     onUpdate,
     handleFeature,
 }) {
+
+    
     return (
         <div className="overflow-x-auto bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-orange-100/50 p-1">
             <table className="w-full text-left border-collapse min-w-[800px]">
@@ -32,23 +34,23 @@ export default function AdminRecipeTable({
                             <td className="p-4 text-gray-500 font-mono text-sm">{index + 1}</td>
 
                             <td className="p-4 text-gray-900 font-medium group-hover:text-orange-600 transition-colors">
-                                {recipe.recipeName}
+                                {recipe?.recipeName}
                             </td>
 
                             <td className="p-4">
                                 <span className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full text-xs font-semibold border border-orange-100">
-                                    {recipe.category}
+                                    {recipe?.category}
                                 </span>
                             </td>
 
-                            <td className="p-4 text-gray-600 text-sm">{recipe.authorEmail}</td>
+                            <td className="p-4 text-gray-600 text-sm">{recipe?.authorEmail}</td>
 
-                            <td className="p-4 text-gray-700 text-sm">{recipe.cuisineType}</td>
+                            <td className="p-4 text-gray-700 text-sm">{recipe?.cuisineType}</td>
 
                             <td className="p-4">
                                 <div className="flex items-center justify-center gap-2">
                                     {/* Feature Button/Badge */}
-                                    {recipe.isFeatured ? (
+                                    {recipe?.isFeatured ? (
                                         <span className="flex items-center gap-1 bg-amber-50 text-amber-600 px-3 py-1.5 rounded-xl text-xs font-bold border border-amber-200">
                                             <FaStar className="animate-pulse" size={12} />
                                             Featured
@@ -72,7 +74,7 @@ export default function AdminRecipeTable({
 
                                     {/* Delete Button */}
                                     <button
-                                        onClick={() => onDelete(recipe._id)}
+                                        onClick={() => onDelete(recipe?._id)}
                                         className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-red-200 text-red-500 text-xs font-semibold hover:bg-red-500 hover:text-white hover:border-red-500 shadow-sm transition-all duration-300 hover:scale-105 active:scale-95"
                                     >
                                         <FaTrash size={11} />

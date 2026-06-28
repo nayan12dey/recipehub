@@ -131,7 +131,7 @@ export default function EditModal({ recipe, onUpdate }) {
         console.log(updatedRecipe)
 
         const res = await fetch(
-            `http://localhost:5000/recipes/${recipe._id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/${recipe._id}`,
             {
                 method: "PUT",
                 headers: {

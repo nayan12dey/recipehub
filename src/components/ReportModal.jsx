@@ -42,7 +42,7 @@ export default function ReportModal({ recipe }) {
         };
 
         try {
-            const res = await fetch("http://localhost:5000/reports", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/reports`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -43,7 +43,7 @@ export default function FavoriteRecipes() {
             const { data: token } = await authClient.token();
 
             const res = await fetch(
-                `http://localhost:5000/favorites/${session.user.email}`,
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites/${session.user.email}`,
                 {
                     headers: {
                         authorization: `Bearer ${token?.token}`,
@@ -64,7 +64,7 @@ export default function FavoriteRecipes() {
 
 
         const res = await fetch(
-            `http://localhost:5000/favorites/${id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites/${id}`,
             {
                 method: "DELETE",
             }

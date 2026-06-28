@@ -25,7 +25,7 @@ export default function ReportsPage() {
                     await authClient.token();
 
                 const res = await fetch(
-                    "http://localhost:5000/reports",
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/reports`,
                     {
                         headers: {
                             authorization: `Bearer ${token?.token} `,
@@ -51,7 +51,7 @@ export default function ReportsPage() {
     const handleDismiss = async (id) => {
         const { data: token } = await authClient.token()
         const res = await fetch(
-            `http://localhost:5000/reports/dismiss/${id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/reports/dismiss/${id}`,
             {
                 method: "PATCH",
                 headers: {
@@ -84,7 +84,7 @@ export default function ReportsPage() {
         const { data: token } = await authClient.token();
 
         await fetch(
-            `http://localhost:5000/recipes/${recipeId}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/${recipeId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -94,7 +94,7 @@ export default function ReportsPage() {
         );
 
         await fetch(
-            `http://localhost:5000/reports/resolve/${reportId}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/reports/resolve/${reportId}`,
             {
                 method: "PATCH",
                 headers: {

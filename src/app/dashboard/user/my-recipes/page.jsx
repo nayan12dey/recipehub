@@ -23,7 +23,7 @@ export default function MyRecipes() {
             const { data: token } = await authClient.token();
 
             const res = await fetch(
-                `http://localhost:5000/my-recipes/${session.user.email}`,
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/my-recipes/${session.user.email}`,
                 {
                     headers: {
                         authorization: `Bearer ${token?.token}`,
@@ -51,7 +51,7 @@ export default function MyRecipes() {
     };
 
     const handleDelete = async (id) => {
-        const res = await fetch(`http://localhost:5000/recipes/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/${id}`, {
             method: "DELETE",
         });
 

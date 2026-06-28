@@ -28,7 +28,7 @@ export default function AdminDashboard() {
                     await authClient.token();
 
                 const res = await fetch(
-                    "http://localhost:5000/admin-overview",
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/admin-overview`,
                     {
                         headers: {
                             authorization: `Bearer ${token?.token}`,

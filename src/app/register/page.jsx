@@ -247,19 +247,19 @@ export default function SignUpPage() {
 
                         <TextField isRequired name="name">
                             <Label className="text-gray-700 dark:text-gray-300">Name</Label>
-                            <Input placeholder="John Doe" className="text-gray-900 dark:text-gray-100" />
+                            <Input placeholder="John Doe"  />
                             <FieldError className="text-red-500 dark:text-red-400" />
                         </TextField>
 
                         <TextField isRequired name="email" type="email">
                             <Label className="text-gray-700 dark:text-gray-300">Email</Label>
-                            <Input placeholder="john@example.com" className="text-gray-900 dark:text-gray-100" />
+                            <Input placeholder="john@example.com"  />
                             <FieldError className="text-red-500 dark:text-red-400" />
                         </TextField>
 
                         <TextField isRequired name="image" type="url">
                             <Label className="text-gray-700 dark:text-gray-300">Image URL</Label>
-                            <Input placeholder="https://example.com/image.jpg" className="text-gray-900 dark:text-gray-100" />
+                            <Input placeholder="https://example.com/image.jpg"  />
                             <FieldError className="text-red-500 dark:text-red-400" />
                         </TextField>
 
@@ -270,7 +270,7 @@ export default function SignUpPage() {
                                     name="password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Password"
-                                    className="w-full pr-10 text-gray-900 dark:text-gray-100"
+                                    className="w-full pr-10"
                                 />
                                 <button
                                     type="button"

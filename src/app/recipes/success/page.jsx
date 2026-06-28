@@ -35,7 +35,7 @@ export default async function RecipePurchaseSuccess({ searchParams }) {
 
     try {
         const recipeRes = await fetch(
-            `http://localhost:5000/recipes/${recipeId}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/${recipeId}`,
             { cache: "no-store" }
         );
 
@@ -48,7 +48,7 @@ export default async function RecipePurchaseSuccess({ searchParams }) {
   
     try {
         const res = await fetch(
-            "http://localhost:5000/payments",
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/payments`,
             {
                 method: "POST",
                 headers: {
@@ -67,6 +67,7 @@ export default async function RecipePurchaseSuccess({ searchParams }) {
                     stripeSessionId: sessionId,
                     amount: checkoutSession.amount_total / 100,
                     paymentStatus: checkoutSession.payment_status,
+                    paymentType: "recipe",
                     purchasedAt: new Date(),
                 }),
             }

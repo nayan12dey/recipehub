@@ -20,7 +20,7 @@ export default function BrowseRecipes() {
         setLoading(true);
 
         fetch(
-            `http://localhost:5000/recipes?category=${selectedCategory}&page=${currentPage}&limit=6`
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes?category=${selectedCategory}&page=${currentPage}&limit=6`
         )
             .then((res) => res.json())
             .then((data) => {

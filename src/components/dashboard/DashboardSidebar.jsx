@@ -4,7 +4,7 @@ import { useSession } from "@/lib/auth-client";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
@@ -28,6 +28,8 @@ const DashboardSideBar = () => {
     const { data: session } = useSession();
     const [profile, setProfile] = useState(null);
 
+    const router = useRouter()
+
     useEffect(() => {
         const fetchUser = async () => {
             if (!session?.user?.email) return;
@@ -35,7 +37,7 @@ const DashboardSideBar = () => {
             const { data: token } = await authClient.token();
 
             const res = await fetch(
-                `http://localhost:5000/user/${session.user.email}`,
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/user/${session.user.email}`,
                 {
                     headers: {
                         authorization: `Bearer ${token?.token}`,

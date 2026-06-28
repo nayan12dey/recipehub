@@ -24,7 +24,7 @@ export default function ManageUsers() {
             const { data: token } = await authClient.token();
 
             const res = await fetch(
-                "http://localhost:5000/users",
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/users`,
                 {
                     headers: {
                         authorization: `Bearer ${token?.token}`,
@@ -46,7 +46,7 @@ export default function ManageUsers() {
             const { data: token } = await authClient.token();
 
             const res = await fetch(
-                `http://localhost:5000/users/block/${id}`,
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/users/block/${id}`,
                 {
                     method: "PATCH",
                     headers: {
@@ -79,7 +79,7 @@ export default function ManageUsers() {
             const { data: token } = await authClient.token();
 
             const res = await fetch(
-                `http://localhost:5000/users/unblock/${id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/unblock/${id}`,
                 {
                     method: "PATCH",
                     headers: {

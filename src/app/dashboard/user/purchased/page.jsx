@@ -40,7 +40,7 @@ export default function PurchasedRecipes() {
                 const { data: token } = await authClient.token();
 
                 const res = await fetch(
-                    `http://localhost:5000/purchases/${session.user.email}`,
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/purchases/${session.user.email}`,
                     {
                         headers: {
                             authorization: `Bearer ${token?.token}`,

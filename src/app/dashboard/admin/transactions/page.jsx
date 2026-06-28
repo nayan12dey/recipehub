@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FaCreditCard, FaCheckCircle, FaTimesCircle, FaReceipt, FaCalendarAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Loader from "@/components/Loader";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 
 export default function TransactionsPage() {
     const [transactions, setTransactions] = useState([]);
@@ -22,7 +22,7 @@ export default function TransactionsPage() {
                 const { data: token } = await authClient.token();
 
                 const res = await fetch(
-                    "http://localhost:5000/payments",
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/payments`,
                     {
                         headers: {
                             authorization: `Bearer ${token?.token} `,
