@@ -10,23 +10,38 @@ export default function ManageRecipes() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/all-recipes`)
-            .then(res => res.json())
-            .then(data => {
-                setRecipes(data)
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
+        const fetchRecipes = async () => {
+            setLoading(true);
+
+            const { data: token } = await authClient.token();
+
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/all-recipes`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token?.token}`,
+                    },
+                }
+            );
+
+            const data = await res.json();
+
+            setRecipes(data);
+            setLoading(false);
+        };
+
+        fetchRecipes();
     }, []);
 
     const handleDelete = async (id) => {
+        const { data: token } = await authClient.token();
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/${id}`,
             {
                 method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${token?.token}`,
+                },
             }
         );
 
@@ -38,7 +53,7 @@ export default function ManageRecipes() {
             );
         }
 
-        
+
     };
 
     const handleUpdate = (updatedRecipe) => {
@@ -54,10 +69,14 @@ export default function ManageRecipes() {
     const handleFeature = async (id) => {
         console.log(id);
 
+        const { data: token } = await authClient.token();
         const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/feature/${id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/recipes/feature/${id}`,
             {
                 method: "PATCH",
+                headers: {
+                    authorization: `Bearer ${token?.token}`,
+                },
             }
         );
 

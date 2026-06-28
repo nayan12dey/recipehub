@@ -14,6 +14,12 @@ export async function POST(request) {
         headers: await headers(),
     });
 
+    if (!user) {
+        return NextResponse.json(
+            { message: "Unauthorized" },
+            { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
 
     const recipeId = searchParams.get("recipeId");

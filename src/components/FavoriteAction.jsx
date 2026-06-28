@@ -50,7 +50,7 @@
 
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { Star } from "lucide-react";
 
 import toast from "react-hot-toast";
@@ -76,12 +76,15 @@ const FavoriteAction = ({ recipe }) => {
             addedAt: new Date(),
         };
 
+        const { data: token } = await authClient.token()
+
         const res = await fetch(
             "http://localhost:5000/favorites",
             {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    authorization: `Bearer ${token?.token}`
                 },
                 body: JSON.stringify(favorite),
             }
