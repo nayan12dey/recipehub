@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { Flag, X, AlertTriangle, ShieldAlert, Ban } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -14,7 +14,7 @@ export default function ReportModal({ recipe }) {
 
     const { data: session } = useSession();
 
-   
+
     const reportOptions = [
         { id: "Spam", label: "Spam", icon: Ban, description: "Misleading, repetitive, or promotional content." },
         { id: "Offensive Content", label: "Offensive Content", icon: AlertTriangle, description: "Contains inappropriate language or imagery." },
@@ -36,16 +36,24 @@ export default function ReportModal({ recipe }) {
             recipeName: recipe.recipeName,
             authorEmail: recipe.authorEmail,
             reporterEmail: session?.user?.email,
+            reportedBy: session?.user?.email,
             reason,
             status: "pending",
             createdAt: new Date(),
         };
+
+
+        const { data: token } = await authClient.token()  
+        // const tokendata = await authClient.token()
+        console.log(token)  
+
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/reports`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    authorization: `Bearer ${token?.token}`,
                 },
                 body: JSON.stringify(reportData),
             });

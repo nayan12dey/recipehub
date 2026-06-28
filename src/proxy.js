@@ -23,7 +23,7 @@ export async function proxy(request) {
 // export default function proxy(request) { ... }
 
 export const config = {
-    matcher: ['/dashboard',"/dashboard/:path*", '/dashboard/user', '/dashboard/user/add-recipe', '/dashboard/user/my-recipes', '/dashboard/user/favorites', '/dashboard/user/purchased', '/dashboard/user/profile'],
+    matcher: ['/dashboard', "/dashboard/:path*", '/dashboard/user', '/dashboard/user/add-recipe', '/dashboard/user/my-recipes', '/dashboard/user/favorites', '/dashboard/user/purchased', '/dashboard/user/profile', '/dashboard/admin', '/dashboard/admin/manage-users', '/dashboard/admin/manage-recipes', '/dashboard/admin/reports', '/dashboard/admin/transactions'],
 }
 
 
@@ -34,4 +34,13 @@ export const config = {
  * dashboard/user/favorites
  * dashboard/user/purchased
  * dashboard/user/profile
+ */
+
+
+/**
+ * 
+ * /dashboard/admin/manage-users
+ * /dashboard/admin/manage-recipes
+ * /dashboard/admin/reports
+ * /dashboard/admin/transactions
  */

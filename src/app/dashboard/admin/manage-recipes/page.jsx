@@ -11,7 +11,7 @@ export default function ManageRecipes() {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/recipes`)
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/all-recipes`)
             .then(res => res.json())
             .then(data => {
                 setRecipes(data)
@@ -37,6 +37,8 @@ export default function ManageRecipes() {
                 prev.filter(recipe => recipe._id !== id)
             );
         }
+
+        
     };
 
     const handleUpdate = (updatedRecipe) => {

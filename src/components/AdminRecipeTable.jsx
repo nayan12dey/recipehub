@@ -10,8 +10,7 @@ export default function AdminRecipeTable({
     handleFeature,
 }) {
 
-    // console.log(recipes?.recipes)
-    const recipesData = recipes?.recipes
+  
 
     
     return (
@@ -29,7 +28,7 @@ export default function AdminRecipeTable({
                 </thead>
 
                 <tbody className="divide-y divide-orange-50/60">
-                    {recipesData.map((recipe, index) => (
+                    {recipes.map((recipe, index) => (
                         <tr
                             key={recipe._id}
                             className="hover:bg-orange-50/40 dark:hover:bg-orange-200 transition-all duration-300 group"
@@ -92,3 +91,4 @@ export default function AdminRecipeTable({
         </div>
     );
 }
+

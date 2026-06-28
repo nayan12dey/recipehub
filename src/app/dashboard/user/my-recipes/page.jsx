@@ -73,7 +73,7 @@ export default function MyRecipes() {
             <div className="mb-6">
                 <div className="flex items-center gap-3 mb-1">
                     <FaBookOpen className="text-orange-500" />
-                    <h1 className="text-2xl font-bold light:text-gray-800 dark:text-gray-100">
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                         My Recipes
                     </h1>
                 </div>
