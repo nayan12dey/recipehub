@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import AdminRecipeTable from "@/components/AdminRecipeTable";
 import toast from "react-hot-toast";
 import Loader from "@/components/Loader";
+import { authClient } from "@/lib/auth-client";
 
 export default function ManageRecipes() {
     const [recipes, setRecipes] = useState([]);
