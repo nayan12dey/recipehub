@@ -79,7 +79,7 @@ const FavoriteAction = ({ recipe }) => {
         const { data: token } = await authClient.token()
 
         const res = await fetch(
-            "http://localhost:5000/favorites",
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites`,
             {
                 method: "POST",
                 headers: {
