@@ -139,7 +139,7 @@ const DashboardSideBar = () => {
 
     const role = session?.user?.role || "user";
     const isAdmin = role === "admin";
-    const isPremium = session?.user?.isPremium;
+    const isPremium = profile?.plan === "premium" || session?.user?.isPremium;
     const menuItems = isAdmin ? adminMenu : userMenu;
 
     return (
@@ -317,17 +317,19 @@ const DashboardSideBar = () => {
                         {/* Avatar */}
                         <div className="relative shrink-0">
                             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-orange-400 dark:border-orange-500 shadow-sm">
-                                {session?.user?.image ? (
+                                {profile?.image || session?.user?.image ? (
                                     <Image
                                         width={40}
                                         height={40}
-                                        src={session.user.image}
+                                        src={profile?.image || session?.user?.image}
                                         alt="Avatar"
                                         className="object-cover w-full h-full"
                                     />
                                 ) : (
                                     <div className="w-full h-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-bold text-sm">
-                                        {session?.user?.name?.charAt(0)?.toUpperCase() || "?"}
+                                        {(profile?.name || session?.user?.name)
+                                            ?.charAt(0)
+                                            ?.toUpperCase() || "?"}
                                     </div>
                                 )}
                             </div>
