@@ -3,10 +3,11 @@
 
 import { authClient, useSession } from "@/lib/auth-client";
 import RecipeCard from "@/components/RecipeCard";
-import { FaBookOpen } from "react-icons/fa";
+import { FaBookOpen, FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import toast from "react-hot-toast";
+import Link from "next/link";
 // import toast from "react-hot-toast";
 
 export default function MyRecipes() {
@@ -86,17 +87,42 @@ export default function MyRecipes() {
             </div>
 
             {/* Grid */}
+            {recipes.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-20 px-6 bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm">
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                {recipes.map((recipe) => (
-                    <RecipeCard
-                        key={recipe._id}
-                        recipe={recipe}
-                        onDelete={handleDelete}
-                        onUpdate={handleRecipeUpdate}
-                    />
-                ))}
-            </div>
+                    <div className="w-20 h-20 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mb-5">
+                        <FaBookOpen className="text-3xl text-orange-500" />
+                    </div>
+
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                        No Recipes Found
+                    </h2>
+
+                    <p className="text-gray-500 dark:text-gray-400 text-center max-w-md mb-6">
+                        You haven't added any recipes yet. Start sharing your delicious recipes with the community.
+                    </p>
+
+                    <Link
+                        href="/dashboard/user/add-recipe"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold transition"
+                    >
+                        <FaPlus />
+                        Add Your First Recipe
+                    </Link>
+                </div>
+            ) : (
+                /* Recipe Grid */
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                    {recipes.map((recipe) => (
+                        <RecipeCard
+                            key={recipe._id}
+                            recipe={recipe}
+                            onDelete={handleDelete}
+                            onUpdate={handleRecipeUpdate}
+                        />
+                    ))}
+                </div>
+            )}
 
         </div>
     );
