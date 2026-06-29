@@ -1,19 +1,19 @@
-// "use client";
+"use client";
 
-// import Link from "next/link";
-// import { useSession } from "@/lib/auth-client";
-// import { Suspense, useEffect } from "react";
-// import { FaCheckCircle, FaCrown } from "react-icons/fa";
-// import { useSearchParams } from "next/navigation";
-// import Loader from "@/components/Loader";
-// import PremiumSuccessContent from "./success";
+import Link from "next/link";
+import { useSession } from "@/lib/auth-client";
+import { Suspense, useEffect } from "react";
+import { FaCheckCircle, FaCrown } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
+import Loader from "@/components/Loader";
+import PremiumSuccessContent from "./success";
 
-// export default function PremiumSuccessPage() {
+export default function PremiumSuccessPage() {
 
 
-//     return (
-//       <Suspense fallback={<Loader />}>
-//             <PremiumSuccessContent></PremiumSuccessContent>
-//         </Suspense>
-//     );
-// }
+    return (
+      <Suspense fallback={<Loader />}>
+            <PremiumSuccessContent></PremiumSuccessContent>
+        </Suspense>
+    );
+}

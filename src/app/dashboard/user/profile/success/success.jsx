@@ -122,10 +122,10 @@ function PremiumSuccessContent() {
         </div>
      );
 }     
-export default function PremiumSuccessContentPage(){
-      
-      <Suspense fallback={<p>Loading....</p>}>
-     			<PremiumSuccessContent></PremiumSuccessContent>
-      </Suspense>
-}
-      
+export default function PremiumSuccessContentPage() {
+    return (
+        <Suspense fallback={<p>Loading....</p>}>
+            <PremiumSuccessContent />
+        </Suspense>
+    );
+}  
