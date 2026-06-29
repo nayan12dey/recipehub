@@ -7,7 +7,7 @@ RecipeHub is a full-stack Next.js platform where food enthusiasts can create, sh
 
 ## 🌐 Live Demo & Repository
 
-- **Live Site**: *https://recipehub-client-three.vercel.app/*
+- **Live Site: https://recipehub-client-three.vercel.app/**
 - **Client Repository:** 
 - **Server  Repository:** 
 
