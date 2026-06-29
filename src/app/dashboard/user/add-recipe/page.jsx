@@ -15,6 +15,7 @@ import {
     FaPlus,
 } from "react-icons/fa";
 import Loader from "@/components/Loader";
+import { useRouter } from "next/navigation";
 
 /* ── tiny field-wrapper helpers ── */
 function FieldLabel({ icon: Icon, label, required }) {
@@ -43,6 +44,8 @@ export default function AddRecipePage() {
     const { data: session } = useSession();
     const [loading, setLoading] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
+
+    const router = useRouter();
 
 
     if (loading) {
@@ -93,7 +96,7 @@ export default function AddRecipePage() {
         console.log(recipe)
 
         const { data: token } = await authClient.token()
-        console.log(token.token)  
+        console.log(token.token)
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/recipes`, {
             method: "POST",
@@ -105,6 +108,13 @@ export default function AddRecipePage() {
         });
 
         const data = await res.json();
+
+        if (res.status === 403) {
+            toast.error(data.message);
+            router.push("/dashboard/user/profile");
+            setLoading(false);
+            return;
+        }
 
         if (data.insertedId) {
             toast.success("Recipe added successfully!");
@@ -169,7 +179,7 @@ export default function AddRecipePage() {
                                     <option value="Main Course"> Main Course</option>
                                     <option value="Fast Food">Fast Food</option>
                                     <option value="Snack">Snack</option>
-                                    <option value="Dinner">Healthy</option>
+                                    <option value="Healthy">Healthy</option>
                                     <option value="Street Food">Street Food</option>
                                     <option value="Beverage">Beverage</option>
                                     <option value="Dessert">Dessert</option>
@@ -343,9 +353,9 @@ export default function AddRecipePage() {
             </div>
         </div>
 
-        
 
-        
+
+
     );
 }
 
